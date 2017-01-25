@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">CampusRecruitmentSystem</string>
+    <string name="app_name">Campus Recruitment System</string>
+
+    <string name="email">Enter Email</string>
+    <string name="password">Enter Password</string>
+
+    <string name="user_id">Enter User ID</string>
+    <string name="full_name">Enter Full Name</string>
+
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+
+    <string name="not_sign_first">Don\'t have an account?</string>
+    <string name="not_sign_second">Sign up now.</string>
+
 </resources>
