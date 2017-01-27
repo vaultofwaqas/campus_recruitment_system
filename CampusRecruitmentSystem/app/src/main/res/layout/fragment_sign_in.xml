@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.waqkz.campusrecruitmentsystem.SignInFragment">
+    tools:context="com.waqkz.campusrecruitmentsystem.AccountCreationModule.SignInFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -11,12 +11,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="16dp"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/campus_recruit"/>
+                android:layout_height="180dp"
+                android:src="@drawable/campus"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,7 +28,7 @@
                     android:id="@+id/email_sign_in"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/email"/>
+                    android:hint="@string/sign_in_email"/>
 
                 <EditText
                     android:id="@+id/password_sign_in"
@@ -35,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:inputType="textPassword"
-                    android:hint="@string/password"/>
+                    android:hint="@string/sign_in_password"/>
 
                 <LinearLayout
                     android:layout_width="130dp"

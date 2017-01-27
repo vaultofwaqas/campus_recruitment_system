@@ -1,0 +1,83 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.waqkz.campusrecruitmentsystem.StudentFormFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <EditText
+                android:id="@+id/student_semester"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:inputType="number"
+                android:hint="@string/last_semester_passed"/>
+
+            <EditText
+                android:id="@+id/student_cgpa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:inputType="number"
+                android:hint="@string/cgpa"/>
+
+            <EditText
+                android:id="@+id/student_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:inputType="phone"
+                android:hint="@string/phone_number"/>
+
+            <EditText
+                android:id="@+id/student_academic_honors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/academic_honors"/>
+
+            <EditText
+                android:id="@+id/community_service"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/community_service"/>
+
+            <EditText
+                android:id="@+id/student_work_experiance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/work_experiance"/>
+
+            <EditText
+                android:id="@+id/student_hobbies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/hobbies"/>
+
+            <Button
+                android:id="@+id/student_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="#7986CB"
+                android:textColor="#FFFFFF"
+                android:text="@string/continue_button"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
