@@ -1,3 +1,3 @@
-# Campus Recruitment System
+# campus_recruitment_system
 
-Marathon's Project Level 0, campus recruitment system github repository.
+My campus recruitment system application github repository.
