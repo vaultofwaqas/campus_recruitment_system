@@ -1,46 +1,12 @@
 <resources>
     <string name="app_name">Campus Recruitment System</string>
+    <string name="admin_login">Admin Login</string>
+    <string name="student_login">Student Login</string>
+    <string name="company_login">Company Login</string>
 
-    <string name="auth_failed">Authorization Failed!</string>
-    <string name="password_error">Password is too short!</string>
+    <string name="admin_type">Admin</string>
+    <string name="student_type">Student</string>
+    <string name="company_type">Company</string>
 
-    <string name="student_id">Enter Student\'s ID</string>
-    <string name="student_full_name">Enter Student\'s Full Name</string>
-    <string name="student_email">Enter Student\'s Email</string>
-    <string name="student_password">Enter Student\'s Password</string>
-
-    <string name="company_id">Enter Company\'s ID</string>
-    <string name="company_full_name">Enter Company\'s Full Name</string>
-    <string name="company_email">Enter Company\'s Email</string>
-    <string name="company_password">Enter Company\'s Password</string>
-
-    <string name="sign_in">Sign In</string>
-    <string name="sign_up">Sign Up</string>
-
-    <string name="not_sign_first">Don\'t have an account?</string>
-    <string name="not_sign_second">Sign up now.</string>
-
-    <string name="sign_in_email">Enter Email</string>
-    <string name="sign_in_password">Enter Password</string>
-
-    <string name="student_sign_up">Student Sign Up</string>
-    <string name="company_sign_up">Company Sign Up</string>
-
-    <string name="last_semester_passed">Enter Last Semester Passed</string>
-    <string name="cgpa">Enter CGPA</string>
-    <string name="academic_honors">Enter Academic Honors and Rewards</string>
-    <string name="community_service">Enter community service</string>
-    <string name="work_experiance">Enter Work Experiance if any!</string>
-    <string name="hobbies">Enter Hobbies</string>
-    <string name="company_address">Enter Company Adress</string>
-    <string name="phone_number">Enter Phone Number</string>
-    <string name="company_web_page">Enter Company/\'s Web page</string>
-    <string name="vacancies_available">Vancies Available</string>
-    <string name="continue_button">Continue</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="student_list">List of Student</string>
-    <string name="company_list">List of Companies</string>
 
 </resources>
