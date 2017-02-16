@@ -12,9 +12,9 @@ public class AccountCreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_creation);
 
-        getSupportFragmentManager()
+        /*getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, new SignInFragment())
-                .commit();
+                .commit();*/
     }
 }
