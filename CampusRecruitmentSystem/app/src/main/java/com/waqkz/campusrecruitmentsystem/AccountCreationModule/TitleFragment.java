@@ -1,9 +1,9 @@
 package com.waqkz.campusrecruitmentsystem.AccountCreationModule;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +19,8 @@ public class TitleFragment extends Fragment {
     private Button adminLoginButton;
     private Button studenLogintButton;
     private Button companyLoginButton;
+
+    private SendMembershipTypeListener sendMembershipTypeListener;
 
     public TitleFragment() {
         // Required empty public constructor
@@ -49,7 +51,13 @@ public class TitleFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                openFragment(getString(R.string.admin_type));
+                sendMembershipTypeListener.sendMembershipType(getString(R.string.admin_type));
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new SignInFragment())
+                        .addToBackStack("TitleFragment")
+                        .commit();
             }
         });
 
@@ -57,7 +65,13 @@ public class TitleFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                openFragment(getString(R.string.student_type));
+                sendMembershipTypeListener.sendMembershipType(getString(R.string.student_type));
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new AccountCreationViewPagerFragment())
+                        .addToBackStack("TitleFragment")
+                        .commit();
             }
         });
 
@@ -65,22 +79,33 @@ public class TitleFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                openFragment(getString(R.string.company_type));
+                sendMembershipTypeListener.sendMembershipType(getString(R.string.company_type));
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new AccountCreationViewPagerFragment())
+                        .addToBackStack("TitleFragment")
+                        .commit();
             }
         });
     }
 
-    public void openFragment(String memberType){
+    public interface SendMembershipTypeListener{
 
-        SignInFragment signInFragment = new SignInFragment();
-        Bundle bundleArgs = new Bundle();
-        bundleArgs.getString("check", memberType);
-        signInFragment.setArguments(bundleArgs);
+        public void sendMembershipType(String sendMemberType);
+    }
 
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, signInFragment)
-                .addToBackStack("TitleFragment")
-                .commit();
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+
+            sendMembershipTypeListener = (SendMembershipTypeListener) context;
+
+        } catch (Exception e){
+
+            e.printStackTrace();
+        }
     }
 }

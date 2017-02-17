@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.waqkz.campusrecruitmentsystem.R;
 
@@ -13,7 +14,10 @@ import com.waqkz.campusrecruitmentsystem.R;
  */
 public class SignInFragment extends Fragment {
 
-    private String value;
+    private EditText emailSignIn;
+    private EditText passwordSignIn;
+
+    public static String memberShipTypeString;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -25,8 +29,16 @@ public class SignInFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_sign_in, container, false);
 
-        value = getArguments().getString("check");
+        attachingWidgets(rootView);
+
+        emailSignIn.setText(memberShipTypeString);
 
         return rootView;
+    }
+
+    public void attachingWidgets(View view){
+
+        emailSignIn = (EditText) view.findViewById(R.id.user_email_sign_in);
+        passwordSignIn = (EditText) view.findViewById(R.id.user_password_sign_in);
     }
 }
