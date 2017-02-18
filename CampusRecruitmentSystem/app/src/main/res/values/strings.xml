@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Campus Recruitment System</string>
+    <string name="campus">Campus</string>
     <string name="admin_login">Admin Login</string>
     <string name="student_login">Student Login</string>
     <string name="company_login">Company Login</string>
@@ -17,6 +18,11 @@
     <string name="sign_in">Sign In</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="sign_up">Sign Up</string>
+    <string name="password_error">Password/\'s length is short.</string>
+    <string name="password_not_matches">Password does not match.</string>
+    <string name="auth_failed">Authentication Failed.</string>
+    <string name="invalid_email">Invalid Email Address</string>
+    <string name="account_creation_succesful">Account creation successful.</string>
 
 
 </resources>

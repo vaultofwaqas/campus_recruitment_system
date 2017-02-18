@@ -1,4 +1,4 @@
-package com.waqkz.campusrecruitmentsystem.AccountCreationModule;
+package com.waqkz.campusrecruitmentsystem.AccountCreationFlow;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -15,7 +15,7 @@ import com.waqkz.campusrecruitmentsystem.R;
  */
 public class AccountCreationViewPagerFragment extends Fragment {
 
-    private ViewPager accountCreationViewPager;
+    public static ViewPager accountCreationViewPager;
     private AccountCreationPagerAdapter accountCreationPagerAdapter;
     private TabLayout accountCreationTabLayout;
 

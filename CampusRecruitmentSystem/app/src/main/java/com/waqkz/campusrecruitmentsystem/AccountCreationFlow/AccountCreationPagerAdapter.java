@@ -1,4 +1,4 @@
-package com.waqkz.campusrecruitmentsystem.AccountCreationModule;
+package com.waqkz.campusrecruitmentsystem.AccountCreationFlow;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -49,4 +49,6 @@ public class AccountCreationPagerAdapter extends FragmentPagerAdapter {
             return mContext.getString(R.string.user_sign_up);
         }
     }
+
+
 }

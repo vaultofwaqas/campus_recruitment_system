@@ -1,4 +1,4 @@
-package com.waqkz.campusrecruitmentsystem.AccountCreationModule;
+package com.waqkz.campusrecruitmentsystem.AccountCreationFlow;
 
 
 import android.content.Context;
