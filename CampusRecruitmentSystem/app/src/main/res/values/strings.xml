@@ -23,6 +23,7 @@
     <string name="auth_failed">Authentication Failed.</string>
     <string name="invalid_email">Invalid Email Address</string>
     <string name="account_creation_succesful">Account creation successful.</string>
+    <string name="account_info_name">AccountInfo</string>
 
 
 </resources>
