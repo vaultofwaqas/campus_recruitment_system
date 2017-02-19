@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Campus Recruitment System</string>
+    <string name="app_name"></string>
     <string name="campus">Campus</string>
     <string name="admin_login">Admin Login</string>
     <string name="student_login">Student Login</string>
@@ -23,7 +23,21 @@
     <string name="auth_failed">Authentication Failed.</string>
     <string name="invalid_email">Invalid Email Address</string>
     <string name="account_creation_succesful">Account creation successful.</string>
-    <string name="account_info_name">AccountInfo</string>
+    <string name="account_info_name">Account Info</string>
+    <string name="enter_student_name">Enter Student Name</string>
+    <string name="enter_student_id">Enter Student ID / Roll No.</string>
+    <string name="enter_date_of_birth">Enter Date Of Birth</string>
+    <string name="enter_marks">Enter CGPA / Percentage</string>
+    <string name="student_male">Male</string>
+    <string name="student_female">Female</string>
+    <string name="save_and_continue">Save And Continue</string>
+    <string name="enter_company_name">Enter Company Name</string>
+    <string name="enter_company_address">Enter Company Address</string>
+    <string name="enter_student_phone_number">Enter Student Phone Number</string>
+    <string name="enter_company_phone_number">Enter Company Phone Number</string>
+    <string name="enter_company_web_page">Enter Company Web Page</string>
+    <string name="vacancy_available">Vacancies Available:</string>
+    <string name="user_not_found">User Not Found</string>
 
 
 </resources>

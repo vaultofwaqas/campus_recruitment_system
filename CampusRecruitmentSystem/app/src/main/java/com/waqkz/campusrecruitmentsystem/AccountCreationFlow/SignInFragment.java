@@ -17,6 +17,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.waqkz.campusrecruitmentsystem.R;
 import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.AccountInfoActivity;
 
@@ -31,6 +36,7 @@ public class SignInFragment extends Fragment {
 
     private String mEmailSignIn;
     private String mPasswordSignIn;
+    private String mEmailPathString;
 
     private ProgressDialog mProgressDialog;
     private FirebaseAuth mAuth;
@@ -113,17 +119,39 @@ public class SignInFragment extends Fragment {
 
                                     } else {
 
-                                        if (membershipType.equals(getString(R.string.admin_type))){
+                                        FirebaseDatabase.getInstance().getReference()
+                                                .child("Campus")
+                                                .child(membershipType)
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                .child("email").addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                        } else {
+                                                if (dataSnapshot.exists()){
 
-                                            accountInfoActivity();
-                                        }
+                                                    if (membershipType.equals(getString(R.string.admin_type))){
 
-                                        mProgressDialog.dismiss();
-                                        Toast.makeText(getActivity(), "Sign In successful.",
-                                                Toast.LENGTH_SHORT).show();
-                                        getActivity().finish();
+                                                    } else {
+
+                                                        accountInfoActivity();
+                                                    }
+
+                                                    mProgressDialog.dismiss();
+                                                    Toast.makeText(getActivity(), "Sign In successful.", Toast.LENGTH_SHORT).show();
+                                                    getActivity().finish();
+                                                } else {
+
+                                                    mProgressDialog.dismiss();
+                                                    mAuth.signOut();
+                                                    Toast.makeText(getActivity(), getString(R.string.user_not_found), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
                                     }
                                 }
                             });
