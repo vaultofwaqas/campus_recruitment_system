@@ -38,6 +38,7 @@
     <string name="enter_company_web_page">Enter Company Web Page</string>
     <string name="vacancy_available">Vacancies Available:</string>
     <string name="user_not_found">User Not Found</string>
+    <string name="account_creation">Account Creation</string>
 
 
 </resources>
