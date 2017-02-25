@@ -38,6 +38,8 @@ public class SignInFragment extends Fragment {
     private String mPasswordSignIn;
     private String mEmailPathString;
 
+    private String loginInfoType;
+
     private ProgressDialog mProgressDialog;
     private FirebaseAuth mAuth;
 
@@ -119,9 +121,23 @@ public class SignInFragment extends Fragment {
 
                                     } else {
 
+                                        if (membershipType.equals(getString(R.string.student_type))){
+
+                                            loginInfoType = getString(R.string.student_login_info);
+
+                                        } else if (membershipType.equals(getString(R.string.student_type))){
+
+                                            loginInfoType = getString(R.string.company_login_info);
+
+                                        } else if (membershipType.equals(getString(R.string.admin_type))){
+
+                                            loginInfoType = getString(R.string.admin_login_info);
+                                        }
+
                                         FirebaseDatabase.getInstance().getReference()
                                                 .child("Campus")
                                                 .child(membershipType)
+                                                .child(loginInfoType)
                                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                                 .child("email").addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override

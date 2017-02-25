@@ -32,5 +32,6 @@ dependencies {
     compile 'com.google.firebase:firebase-storage:10.2.0'
     compile 'com.google.firebase:firebase-auth:10.2.0'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'com.soundcloud.android:android-crop:1.0.1@aar'
     testCompile 'junit:junit:4.12'
 }

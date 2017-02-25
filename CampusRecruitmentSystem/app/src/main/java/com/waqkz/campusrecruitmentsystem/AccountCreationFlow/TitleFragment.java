@@ -32,6 +32,8 @@ public class TitleFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_title, container, false);
 
+        AccountCreationActivity.toolBarText.setText(getString(R.string.app_name));
+
         attachingWidgets(rootView);
         initializingComponents();
 
@@ -58,6 +60,8 @@ public class TitleFragment extends Fragment {
                         .replace(R.id.fragment_container, new SignInFragment())
                         .addToBackStack("TitleFragment")
                         .commit();
+
+                AccountCreationActivity.toolBarText.setText(getString(R.string.admin_login));
             }
         });
 
@@ -72,6 +76,8 @@ public class TitleFragment extends Fragment {
                         .replace(R.id.fragment_container, new AccountCreationViewPagerFragment())
                         .addToBackStack("TitleFragment")
                         .commit();
+
+                AccountCreationActivity.toolBarText.setText(getString(R.string.student_login));
             }
         });
 
@@ -86,6 +92,8 @@ public class TitleFragment extends Fragment {
                         .replace(R.id.fragment_container, new AccountCreationViewPagerFragment())
                         .addToBackStack("TitleFragment")
                         .commit();
+
+                AccountCreationActivity.toolBarText.setText(getString(R.string.company_login));
             }
         });
     }

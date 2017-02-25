@@ -1,5 +1,7 @@
 package com.waqkz.campusrecruitmentsystem.AccountCreationFlow;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,12 +14,21 @@ import com.waqkz.campusrecruitmentsystem.R;
 
 public class AccountCreationActivity extends AppCompatActivity implements TitleFragment.SendMembershipTypeListener {
 
-    private TextView accountCreation;
+    public static boolean checkConnectivity(Context context) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    private static Context context;
+    public static TextView toolBarText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_creation);
+
+        context = this.getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -36,8 +47,6 @@ public class AccountCreationActivity extends AppCompatActivity implements TitleF
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
 
-        accountCreation.setText(getString(R.string.account_creation));
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, new TitleFragment())
@@ -53,6 +62,10 @@ public class AccountCreationActivity extends AppCompatActivity implements TitleF
 
     public void attachingWidgets(){
 
-        accountCreation = (TextView) findViewById(R.id.title_page);
+        toolBarText = (TextView) findViewById(R.id.title_page);
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

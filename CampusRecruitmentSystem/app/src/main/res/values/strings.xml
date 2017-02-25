@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Campus Recruitment System</string>
     <string name="campus">Campus</string>
     <string name="admin_login">Admin Login</string>
     <string name="student_login">Student Login</string>
@@ -18,7 +18,7 @@
     <string name="sign_in">Sign In</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="sign_up">Sign Up</string>
-    <string name="password_error">Password/\'s length is short.</string>
+    <string name="password_error">Password\'s length is short.</string>
     <string name="password_not_matches">Password does not match.</string>
     <string name="auth_failed">Authentication Failed.</string>
     <string name="invalid_email">Invalid Email Address</string>
@@ -28,6 +28,7 @@
     <string name="enter_student_id">Enter Student ID / Roll No.</string>
     <string name="enter_date_of_birth">Enter Date Of Birth</string>
     <string name="enter_marks">Enter CGPA / Percentage</string>
+    <string name="select_students_gender">Please Select Student\'s Gender</string>
     <string name="student_male">Male</string>
     <string name="student_female">Female</string>
     <string name="save_and_continue">Save And Continue</string>
@@ -38,7 +39,12 @@
     <string name="enter_company_web_page">Enter Company Web Page</string>
     <string name="vacancy_available">Vacancies Available:</string>
     <string name="user_not_found">User Not Found</string>
-    <string name="account_creation">Account Creation</string>
+    <string name="student_info">Student_Info</string>
+    <string name="error_upload_image">Error Uploading Image</string>
+    <string name="student_profile_image_not_set">Student\'s Profile Image not set.</string>
+    <string name="student_login_info">student_login_info</string>
+    <string name="company_login_info">company_login_info</string>
+    <string name="admin_login_info">admin_login_info</string>
 
 
 </resources>

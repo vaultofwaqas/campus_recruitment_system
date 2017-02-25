@@ -3,6 +3,7 @@ package com.waqkz.campusrecruitmentsystem.AccountCreationFlow;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -72,7 +73,7 @@ public class SignUpFragment extends Fragment {
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
                 boolean check = false;
 
@@ -141,9 +142,22 @@ public class SignUpFragment extends Fragment {
 
                         } else {
 
-                            mDatabase.child(getString(R.string.campus)).child(membershipType)
-                                    .child(UUID)
-                                    .setValue(signUp);
+                            if (membershipType.equals(getString(R.string.student_type))){
+
+                                mDatabase.child(getString(R.string.campus))
+                                        .child(membershipType)
+                                        .child(getString(R.string.student_login_info))
+                                        .child(UUID)
+                                        .setValue(signUp);
+
+                            } else if (membershipType.equals(getString(R.string.company_type))){
+
+                                mDatabase.child(getString(R.string.campus))
+                                        .child(membershipType)
+                                        .child(getString(R.string.company_login_info))
+                                        .child(UUID)
+                                        .setValue(signUp);
+                            }
 
                             signUpEmail.setText("");
                             signUpPassword.setText("");
@@ -152,8 +166,8 @@ public class SignUpFragment extends Fragment {
                             AccountCreationViewPagerFragment.accountCreationViewPager.setCurrentItem(0);
 
                             mProgressDialog.dismiss();
-                            Toast.makeText(getActivity(), getString(R.string.account_creation_succesful),
-                                    Toast.LENGTH_LONG).show();
+
+                            Snackbar.make(v, R.string.account_creation_succesful, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                         }
                     }
                 });
