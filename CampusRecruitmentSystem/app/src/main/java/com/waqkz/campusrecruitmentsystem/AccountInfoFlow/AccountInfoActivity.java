@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,6 +41,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.soundcloud.android.crop.Crop;
 import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.AccountCreationActivity;
+import com.waqkz.campusrecruitmentsystem.AccountListDetailFlow.AccountListDetailActivity;
 import com.waqkz.campusrecruitmentsystem.R;
 
 import java.io.ByteArrayOutputStream;
@@ -78,7 +80,6 @@ public class AccountInfoActivity extends AppCompatActivity {
     private String studentDateOfBirthString;
     private String studentMarksString;
     private String studentGenderString;
-    private String urlString;
 
     private EditText companyName;
     private EditText companyAddress;
@@ -86,6 +87,12 @@ public class AccountInfoActivity extends AppCompatActivity {
     private EditText companyWebPage;
     private CheckBox companyVacancyAvailableCheck;
     private Button companySaveAndContinue;
+
+    private String companyNameString;
+    private String companyAddressString;
+    private String companyPhoneNumberString;
+    private String companyWebPageString;
+    private Boolean companyVacancyCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,6 +201,14 @@ public class AccountInfoActivity extends AppCompatActivity {
                     studentDateOfBirthString = studentDateOfBirth.getText().toString().trim();
                     studentMarksString = studentMarks.getText().toString().trim();
 
+                    if(userImageView.getTag().equals("0")){
+
+                        Toast.makeText(AccountInfoActivity.this, getString(R.string.student_profile_image_not_set),
+                                Toast.LENGTH_SHORT).show();
+
+                        return;
+                    }
+
                     if (TextUtils.isEmpty(studentNameString)
                             && TextUtils.isEmpty(studentIDString)
                             && TextUtils.isEmpty(studentDateOfBirthString)
@@ -226,18 +241,11 @@ public class AccountInfoActivity extends AppCompatActivity {
                         studentGenderString = getString(R.string.student_female);
                     }
 
-                    if(userImageView.getTag().equals("0")){
-
-                        Toast.makeText(AccountInfoActivity.this, getString(R.string.student_profile_image_not_set),
-                                Toast.LENGTH_SHORT).show();
-
-                        return;
-                    }
-
                     mProgressDialog.setMessage("Updating Student Account ...");
                     mProgressDialog.show();
 
-                    uploadFileToFileStorage(v, userImageView, mStorage.child("img/profile"), FirebaseAuth.getInstance().getCurrentUser().getUid(), new ServiceListener<String>() {
+                    uploadFileToFileStorage(v, userImageView, mStorage.child("img/profile"),
+                            FirebaseAuth.getInstance().getCurrentUser().getUid(), new ServiceListener<String>() {
                         @Override
                         public void success(String url) {
 
@@ -256,7 +264,10 @@ public class AccountInfoActivity extends AppCompatActivity {
                                     .setValue(studentInfo);
 
                             mProgressDialog.dismiss();
-                            Snackbar.make(v, "Student Account Update Successful", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            openAccountListDetailActivity();
+                            Snackbar.make(v, "Student Account Update Successful",
+                                    Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            finish();
 
                         }
 
@@ -264,7 +275,8 @@ public class AccountInfoActivity extends AppCompatActivity {
                         public void error(ServiceError serviceError) {
 
                             mProgressDialog.dismiss();
-                            return;
+                            Snackbar.make(v, "Student Account Update Was Not Successful",
+                                    Snackbar.LENGTH_LONG).setAction("Action", null).show();
                         }
                     });
 
@@ -274,9 +286,93 @@ public class AccountInfoActivity extends AppCompatActivity {
 
         if (membershipType.equals(getString(R.string.company_type))){
 
+            userImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    galleryIntent.setType("*/*");
+                    startActivityForResult(galleryIntent, Gallery_Request);
+                }
+            });
+
+            companyVacancyAvailableCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    companyVacancyCheck = isChecked;
+                }
+            });
+
+            companySaveAndContinue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+
+                    companyNameString = companyName.getText().toString().trim();
+                    companyAddressString = companyAddress.getText().toString().trim();
+                    companyPhoneNumberString = companyPhoneNumber.getText().toString().trim();
+                    companyWebPageString = companyWebPage.getText().toString().trim();
+
+                    if(userImageView.getTag().equals("0")){
+
+                        Toast.makeText(AccountInfoActivity.this, getString(R.string.company_profile_image_not_set),
+                                Toast.LENGTH_SHORT).show();
+
+                        return;
+                    }
+
+                    if (TextUtils.isEmpty(companyNameString)
+                            && TextUtils.isEmpty(companyAddressString)
+                            && TextUtils.isEmpty(companyPhoneNumberString)
+                            && TextUtils.isEmpty(companyWebPageString)) {
+
+                        companyName.setError(getString(R.string.enter_student_name));
+                        companyAddress.setError(getString(R.string.enter_student_id));
+                        companyPhoneNumber.setError(getString(R.string.enter_student_phone_number));
+                        companyWebPage.setError(getString(R.string.enter_date_of_birth));
+
+                        return;
+                    }
+
+                    mProgressDialog.setMessage("Updating Company Account ...");
+                    mProgressDialog.show();
+
+                    uploadFileToFileStorage(v, userImageView, mStorage.child("img/profile"),
+                            FirebaseAuth.getInstance().getCurrentUser().getUid(), new ServiceListener<String>() {
+                        @Override
+                        public void success(String url) {
+
+                            CompanyInfo companyInfo = new CompanyInfo(companyNameString,
+                                    companyAddressString,
+                                    companyPhoneNumberString,
+                                    companyWebPageString,
+                                    companyVacancyCheck,
+                                    url);
+
+                            mDatabase.child(getString(R.string.campus))
+                                    .child(getString(R.string.company_type))
+                                    .child(getString(R.string.company_info))
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(companyInfo);
+
+                            mProgressDialog.dismiss();
+                            openAccountListDetailActivity();
+                            Snackbar.make(v, "Company Account Update Successful",
+                                    Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            finish();
+                        }
+
+                        @Override
+                        public void error(ServiceError serviceError) {
+
+                            mProgressDialog.dismiss();
+                            Snackbar.make(v, "Company Account Update Was Not Successful",
+                                    Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        }
+                    });
+                }
+            });
         }
-
     }
 
     @Override
@@ -310,7 +406,8 @@ public class AccountInfoActivity extends AppCompatActivity {
         }
     }
 
-    public static void uploadFileToFileStorage(final View view, ImageView uploadedImage, StorageReference storageReference, String id, final ServiceListener listener) {
+    public static void uploadFileToFileStorage(final View view, ImageView uploadedImage,
+                                               StorageReference storageReference, String id, final ServiceListener listener) {
 
         if (AccountCreationActivity.checkConnectivity(AccountCreationActivity.getContext())) {
 
@@ -328,7 +425,8 @@ public class AccountInfoActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
 
-                    Snackbar.make(view, R.string.error_upload_image + e.getMessage(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Snackbar.make(view, R.string.error_upload_image + e.getMessage(),
+                            Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -338,7 +436,15 @@ public class AccountInfoActivity extends AppCompatActivity {
                 }
             });
         } else {
-            Snackbar.make(view, "No Internet Connection Available", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(view, "No Internet Connection Available",
+                    Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
+    }
+
+    public void openAccountListDetailActivity(){
+
+        Intent intent = new Intent(this, AccountListDetailActivity.class);
+        intent.putExtra("memberType", membershipType);
+        startActivity(intent);
     }
 }

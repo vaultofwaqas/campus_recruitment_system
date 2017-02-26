@@ -19,11 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AccountInfoFlow.AccountInfoActivity"
+        <activity
+            android:name=".AccountInfoFlow.AccountInfoActivity"
             android:label="@string/account_info_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+        <activity android:name=".AccountListDetailFlow.AccountListDetailActivity"></activity>
     </application>
 
 </manifest>

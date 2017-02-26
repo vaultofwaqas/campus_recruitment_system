@@ -1,6 +1,8 @@
 package com.waqkz.campusrecruitmentsystem.AccountCreationFlow;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +10,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import com.waqkz.campusrecruitmentsystem.AccountListDetailFlow.AccountListDetailActivity;
 import com.waqkz.campusrecruitmentsystem.R;
 
 public class AccountCreationActivity extends AppCompatActivity implements TitleFragment.SendMembershipTypeListener {
@@ -22,6 +26,9 @@ public class AccountCreationActivity extends AppCompatActivity implements TitleF
 
     private static Context context;
     public static TextView toolBarText;
+
+    private FirebaseAuth mAuth;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,20 @@ public class AccountCreationActivity extends AppCompatActivity implements TitleF
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
+
+        sharedPreferences = this.getSharedPreferences(getResources().getString(R.string.prefKey),0);
+
+        mAuth = FirebaseAuth.getInstance();
+        String membershipType = sharedPreferences.getString(getResources().getString(R.string.prefType), "");
+
+        if (mAuth.getCurrentUser() != null && !membershipType.equals("")){
+
+            Intent intent = new Intent(this, AccountListDetailActivity.class);
+            intent.putExtra("memberType", membershipType);
+            startActivity(intent);
+
+            finish();
         }
 
         getSupportFragmentManager()

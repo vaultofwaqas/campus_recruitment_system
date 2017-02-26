@@ -45,6 +45,13 @@
     <string name="student_login_info">student_login_info</string>
     <string name="company_login_info">company_login_info</string>
     <string name="admin_login_info">admin_login_info</string>
+    <string name="company_profile_image_not_set">Company Profile Image not set.</string>
+    <string name="prefKey">USER_Info</string>
+    <string name="prefType">USER_Type</string>
+    <string name="company_info">Company_info</string>
+    <string name="settings_menu_item">Sign Out</string>
+    <string name="student_id">studentID</string>
+    <string name="company_name">companyName</string>
 
 
 </resources>

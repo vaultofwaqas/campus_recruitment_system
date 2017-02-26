@@ -6,21 +6,29 @@ package com.waqkz.campusrecruitmentsystem.AccountInfoFlow;
 
 public class CompanyInfo {
 
-    String companyName;
-    String companyAddress;
-    String companyPhoneNumber;
-    String companyWebPage;
-    Boolean companyVacancyAvailableCheck;
+    private String companyName;
+    private String companyAddress;
+    private String companyPhoneNumber;
+    private String companyWebPage;
+    private Boolean companyVacancyAvailableCheck;
+    private String companyURL;
 
     public CompanyInfo() {
     }
 
-    public CompanyInfo(String companyName, String companyAddress, String companyPhoneNumber, String companyWebPage, Boolean companyVacancyAvailableCheck) {
+    public CompanyInfo(String companyName,
+                       String companyAddress,
+                       String companyPhoneNumber,
+                       String companyWebPage,
+                       Boolean companyVacancyAvailableCheck,
+                       String companyURL) {
+
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyPhoneNumber = companyPhoneNumber;
         this.companyWebPage = companyWebPage;
         this.companyVacancyAvailableCheck = companyVacancyAvailableCheck;
+        this.companyURL = companyURL;
     }
 
     public String getCompanyName() {
@@ -61,5 +69,13 @@ public class CompanyInfo {
 
     public void setCompanyVacancyAvailableCheck(Boolean companyVacancyAvailableCheck) {
         this.companyVacancyAvailableCheck = companyVacancyAvailableCheck;
+    }
+
+    public String getCompanyURL() {
+        return companyURL;
+    }
+
+    public void setCompanyURL(String companyURL) {
+        this.companyURL = companyURL;
     }
 }

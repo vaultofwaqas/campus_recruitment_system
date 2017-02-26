@@ -6,18 +6,25 @@ package com.waqkz.campusrecruitmentsystem.AccountInfoFlow;
 
 public class StudentInfo {
 
-    String studentName;
-    String studentID;
-    String studentPhoneNumber;
-    String studentDateOfBirth;
-    String studentMarks;
-    String studentGender;
-    String studentURL;
+    private String studentName;
+    private String studentID;
+    private String studentPhoneNumber;
+    private String studentDateOfBirth;
+    private String studentMarks;
+    private String studentGender;
+    private String studentURL;
 
     public StudentInfo() {
     }
 
-    public StudentInfo(String studentName, String studentID, String studentPhoneNumber, String studentDateOfBirth, String studentMarks, String studentGender, String studentURL) {
+    public StudentInfo(String studentName,
+                       String studentID,
+                       String studentPhoneNumber,
+                       String studentDateOfBirth,
+                       String studentMarks,
+                       String studentGender,
+                       String studentURL) {
+
         this.studentName = studentName;
         this.studentID = studentID;
         this.studentPhoneNumber = studentPhoneNumber;

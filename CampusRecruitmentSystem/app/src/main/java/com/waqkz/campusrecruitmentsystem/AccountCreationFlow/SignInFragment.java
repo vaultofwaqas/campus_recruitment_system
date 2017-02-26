@@ -1,9 +1,12 @@
 package com.waqkz.campusrecruitmentsystem.AccountCreationFlow;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -22,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.waqkz.campusrecruitmentsystem.AccountListDetailFlow.AccountListDetailActivity;
 import com.waqkz.campusrecruitmentsystem.R;
 import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.AccountInfoActivity;
 
@@ -29,6 +33,8 @@ import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.AccountInfoActivity;
  * A simple {@link Fragment} subclass.
  */
 public class SignInFragment extends Fragment {
+
+    public AccountCreationActivity activity;
 
     private EditText emailSignIn;
     private EditText passwordSignIn;
@@ -39,6 +45,8 @@ public class SignInFragment extends Fragment {
     private String mEmailPathString;
 
     private String loginInfoType;
+    private String infoType;
+    private String accountInfo;
 
     private ProgressDialog mProgressDialog;
     private FirebaseAuth mAuth;
@@ -75,7 +83,7 @@ public class SignInFragment extends Fragment {
 
         userSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
                 mEmailSignIn = emailSignIn.getText().toString();
                 mPasswordSignIn = passwordSignIn.getText().toString();
@@ -124,10 +132,14 @@ public class SignInFragment extends Fragment {
                                         if (membershipType.equals(getString(R.string.student_type))){
 
                                             loginInfoType = getString(R.string.student_login_info);
+                                            infoType = getString(R.string.student_info);
+                                            accountInfo = getString(R.string.student_id);
 
-                                        } else if (membershipType.equals(getString(R.string.student_type))){
+                                        } else if (membershipType.equals(getString(R.string.company_type))){
 
                                             loginInfoType = getString(R.string.company_login_info);
+                                            infoType = getString(R.string.company_info);
+                                            accountInfo = getString(R.string.company_name);
 
                                         } else if (membershipType.equals(getString(R.string.admin_type))){
 
@@ -147,19 +159,41 @@ public class SignInFragment extends Fragment {
 
                                                     if (membershipType.equals(getString(R.string.admin_type))){
 
+                                                        openAccountListDetailActivity(v);
+
                                                     } else {
 
-                                                        accountInfoActivity();
+                                                        FirebaseDatabase.getInstance().getReference()
+                                                                .child("Campus")
+                                                                .child(membershipType)
+                                                                .child(infoType)
+                                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                                .child(accountInfo).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                                if (dataSnapshot.exists()){
+
+                                                                    openAccountListDetailActivity(v);
+
+                                                                } else {
+
+                                                                    openAccountInfoActivity(v);
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(DatabaseError databaseError) {
+
+                                                            }
+                                                        });
                                                     }
 
-                                                    mProgressDialog.dismiss();
-                                                    Toast.makeText(getActivity(), "Sign In successful.", Toast.LENGTH_SHORT).show();
-                                                    getActivity().finish();
                                                 } else {
 
                                                     mProgressDialog.dismiss();
                                                     mAuth.signOut();
-                                                    Toast.makeText(getActivity(), getString(R.string.user_not_found), Toast.LENGTH_SHORT).show();
+                                                    Snackbar.make(v, getString(R.string.user_not_found), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                                                 }
                                             }
 
@@ -200,10 +234,28 @@ public class SignInFragment extends Fragment {
         });
     }
 
-    public void accountInfoActivity(){
+    public void openAccountInfoActivity(View v){
+
+        mProgressDialog.dismiss();
+        Snackbar.make(v, "Sign In successful.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
         Intent intent = new Intent(getActivity(), AccountInfoActivity.class);
         intent.putExtra("memberType", membershipType);
         startActivity(intent);
+
+        getActivity().finish();
     }
+
+    public void openAccountListDetailActivity(View v){
+
+        mProgressDialog.dismiss();
+        Snackbar.make(v, "Sign In successful.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+        Intent intent = new Intent(getActivity(), AccountListDetailActivity.class);
+        intent.putExtra("memberType", membershipType);
+        startActivity(intent);
+
+        getActivity().finish();
+    }
+
 }
