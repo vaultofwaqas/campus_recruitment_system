@@ -34,8 +34,6 @@ import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.AccountInfoActivity;
  */
 public class SignInFragment extends Fragment {
 
-    public AccountCreationActivity activity;
-
     private EditText emailSignIn;
     private EditText passwordSignIn;
     private Button userSignInButton;

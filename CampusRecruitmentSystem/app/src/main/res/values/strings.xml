@@ -52,6 +52,8 @@
     <string name="settings_menu_item">Sign Out</string>
     <string name="student_id">studentID</string>
     <string name="company_name">companyName</string>
+    <string name="student_list_info">Student List Info</string>
+    <string name="company_list_info">Company List Info</string>
 
 
 </resources>

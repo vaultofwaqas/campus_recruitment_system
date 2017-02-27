@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.AccountCreationActivity;
@@ -19,6 +20,8 @@ public class AccountListDetailActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
 
+    public static TextView toolBarText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,12 +31,34 @@ public class AccountListDetailActivity extends AppCompatActivity {
         toolbar.showOverflowMenu();
         setSupportActionBar(toolbar);
 
+        attachingWidgets();
+
         Intent intent = getIntent();
         membershipType = intent.getExtras().getString("memberType");
 
         mAuth = FirebaseAuth.getInstance();
 
         saveUserPref();
+
+        if (membershipType.equals(getString(R.string.student_type))){
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragment_list_detail_container, new CompanyListFragment())
+                    .commit();
+
+        } else if (membershipType.equals(getString(R.string.company_type))){
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragment_list_detail_container, new StudentListFragment())
+                    .commit();
+        }
+    }
+
+    public void attachingWidgets(){
+
+        toolBarText = (TextView) findViewById(R.id.title_page);
     }
 
     public void saveUserPref(){
