@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="4dp"
-    android:focusableInTouchMode="true"
     card_view:cardBackgroundColor="#fff"
-    card_view:cardCornerRadius="2dp">
+    card_view:cardCornerRadius="2dp"
+    android:layout_margin="4dp"
+    android:focusable="false">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,14 +26,16 @@
             <ProgressBar
                 android:layout_width="50dp"
                 android:layout_height="35dp"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:focusable="false"/>
 
             <ImageView
                 android:id="@+id/user_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:focusable="false"/>
 
         </RelativeLayout>
 
@@ -47,6 +49,8 @@
             android:layout_below="@+id/user_image_layout"
             android:layout_centerHorizontal="true">
 
+
+
             <TextView
                 android:id="@+id/user_list_name"
                 android:layout_width="0dp"
@@ -58,7 +62,8 @@
                 android:gravity="right"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:focusable="false"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -70,7 +75,8 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#77cccccc" />
+                    android:background="#77cccccc"
+                    android:focusable="false"/>
 
             </LinearLayout>
 
@@ -84,7 +90,8 @@
                 android:textColor="#B1B3B4"
                 android:textSize="12sp"
                 android:ellipsize="end"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:focusable="false"/>
 
         </LinearLayout>
 
@@ -98,7 +105,8 @@
             android:layout_marginBottom="8dp"
             android:gravity="center"
             android:layout_below="@+id/user_name_id_layout"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:focusable="false"/>
 
     </RelativeLayout>
 

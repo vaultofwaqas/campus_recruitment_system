@@ -25,7 +25,8 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
-        <activity android:name=".AccountListDetailFlow.AccountListDetailActivity"></activity>
+        <activity android:name=".AccountListFlow.AccountListActivity" />
+        <activity android:name=".AccountDetailFlow.AccountDetailActivity"></activity>
     </application>
 
 </manifest>

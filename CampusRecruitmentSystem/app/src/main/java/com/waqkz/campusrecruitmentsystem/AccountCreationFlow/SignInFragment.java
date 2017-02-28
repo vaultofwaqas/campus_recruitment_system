@@ -1,8 +1,6 @@
 package com.waqkz.campusrecruitmentsystem.AccountCreationFlow;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,12 +18,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.waqkz.campusrecruitmentsystem.AccountListDetailFlow.AccountListDetailActivity;
+import com.waqkz.campusrecruitmentsystem.AccountListFlow.AccountListActivity;
 import com.waqkz.campusrecruitmentsystem.R;
 import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.AccountInfoActivity;
 
@@ -249,7 +246,7 @@ public class SignInFragment extends Fragment {
         mProgressDialog.dismiss();
         Snackbar.make(v, "Sign In successful.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-        Intent intent = new Intent(getActivity(), AccountListDetailActivity.class);
+        Intent intent = new Intent(getActivity(), AccountListActivity.class);
         intent.putExtra("memberType", membershipType);
         startActivity(intent);
 

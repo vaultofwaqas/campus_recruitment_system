@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import com.waqkz.campusrecruitmentsystem.AccountListDetailFlow.AccountListDetailActivity;
+import com.waqkz.campusrecruitmentsystem.AccountListFlow.AccountListActivity;
 import com.waqkz.campusrecruitmentsystem.R;
 
 public class AccountCreationActivity extends AppCompatActivity implements TitleFragment.SendMembershipTypeListener {
@@ -61,7 +61,7 @@ public class AccountCreationActivity extends AppCompatActivity implements TitleF
 
         if (mAuth.getCurrentUser() != null && !membershipType.equals("")){
 
-            Intent intent = new Intent(this, AccountListDetailActivity.class);
+            Intent intent = new Intent(this, AccountListActivity.class);
             intent.putExtra("memberType", membershipType);
             startActivity(intent);
 
