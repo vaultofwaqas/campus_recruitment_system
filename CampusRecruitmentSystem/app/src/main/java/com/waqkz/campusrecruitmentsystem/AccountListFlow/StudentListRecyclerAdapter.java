@@ -54,10 +54,10 @@ public class StudentListRecyclerAdapter extends RecyclerView.Adapter<StudentList
         UserList userList = studentListArrayList.get(position);
 
         Glide.with(inflater.getContext()).load(userList.getUserImageURL()).asBitmap()
-                .error(R.drawable.default_company_image).centerCrop().into(holder.studentImage);
+                .error(R.drawable.default_student).centerCrop().into(holder.studentImage);
 
         holder.studentName.setText(userList.getUserName());
-        holder.studentID.setText(userList.getUserID());
+        holder.studentID.setText(userList.getUserStudentID());
         holder.studentEmail.setText(userList.getUserEmail());
 
     }

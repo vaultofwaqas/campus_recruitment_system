@@ -1,5 +1,6 @@
 package com.waqkz.campusrecruitmentsystem.AccountListFlow;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,8 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
     private ArrayList<UserList> studentArrayList;
     private UserList users;
 
+    private ProgressDialog mProgressDialog;
+
     public StudentListFragment() {
         // Required empty public constructor
     }
@@ -49,6 +52,8 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         studentRecyclerView.setLayoutManager(layoutManager);
 
+        mProgressDialog = new ProgressDialog(getActivity());
+
         studentArrayList = new ArrayList<UserList>();
 
         attachingComponents();
@@ -66,6 +71,9 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
     }
 
     public void attachingComponents(){
+
+        mProgressDialog.setMessage("Grid List Loading...");
+        mProgressDialog.show();
 
         FirebaseDatabase.getInstance().getReference()
                 .child(getString(R.string.campus))
@@ -94,18 +102,27 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
 
                                                     StudentInfo studentInfo = dataSnapshot.getValue(StudentInfo.class);
 
-                                                    users = new UserList(studentInfo.getStudentURL(),
+                                                    users = new UserList(signUp.getUUID(),
+                                                            signUp.getEmail(),
+                                                            studentInfo.getStudentGender(),
+                                                            studentInfo.getStudentMarks(),
                                                             studentInfo.getStudentName(),
                                                             studentInfo.getStudentID(),
-                                                            signUp.getEmail());
+                                                            studentInfo.getStudentPhoneNumber(),
+                                                            studentInfo.getStudentURL(),
+                                                            studentInfo.getStudentDateOfBirth());
 
                                                     studentArrayList.add(users);
                                                     studentListRecyclerAdapter.notifyDataSetChanged();
+
+                                                    mProgressDialog.dismiss();
                                                 }
                                             }
 
                                             @Override
                                             public void onCancelled(DatabaseError databaseError) {
+
+                                                mProgressDialog.dismiss();
                                             }
                                         });
                             }
@@ -114,6 +131,8 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
+
+                        mProgressDialog.dismiss();
                     }
                 });
     }
@@ -123,6 +142,7 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
 
         Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
         intent.putExtra("memberType", AccountListActivity.membershipType);
+        intent.putExtra("user_info", studentArrayList.get(position));
         startActivity(intent);
     }
 }

@@ -57,7 +57,7 @@ public class CompanyListRecyclerAdapter extends RecyclerView.Adapter<CompanyList
                 .error(R.drawable.default_company_image).centerCrop().into(holder.companyImage);
 
         holder.companyName.setText(userList.getUserName());
-        holder.companyWebPage.setText(userList.getUserID());
+        holder.companyWebPage.setText(userList.getUserCompanyWebPage());
         holder.companyEmail.setText(userList.getUserEmail());
 
     }

@@ -1,6 +1,7 @@
 package com.waqkz.campusrecruitmentsystem.AccountListFlow;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
     private ArrayList<UserList> companyArrayList;
     private UserList users;
 
+    private ProgressDialog mProgressDialog;
+
     public CompanyListFragment() {
         // Required empty public constructor
     }
@@ -50,6 +53,8 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         companyRecyclerView.setLayoutManager(layoutManager);
 
+        mProgressDialog = new ProgressDialog(getActivity());
+
         companyArrayList = new ArrayList<UserList>();
 
         attachingComponents();
@@ -67,6 +72,9 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
     }
 
     public void attachingComponents(){
+
+        mProgressDialog.setMessage("Grid List Loading...");
+        mProgressDialog.show();
 
         FirebaseDatabase.getInstance().getReference()
                 .child(getString(R.string.campus))
@@ -95,18 +103,26 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
 
                                                     CompanyInfo companyInfo = dataSnapshot.getValue(CompanyInfo.class);
 
-                                                    users = new UserList(companyInfo.getCompanyURL(),
+                                                    users = new UserList(signUp.getUUID(),
+                                                            signUp.getEmail(),
                                                             companyInfo.getCompanyName(),
-                                                            companyInfo.getCompanyWebPage(),
-                                                            signUp.getEmail());
+                                                            companyInfo.getCompanyAddress(),
+                                                            companyInfo.getCompanyPhoneNumber(),
+                                                            companyInfo.getCompanyURL(),
+                                                            companyInfo.getCompanyVacancyAvailableCheck(),
+                                                            companyInfo.getCompanyWebPage());
 
                                                     companyArrayList.add(users);
                                                     companyListRecyclerAdapter.notifyDataSetChanged();
+
+                                                    mProgressDialog.dismiss();
                                                 }
                                             }
 
                                             @Override
                                             public void onCancelled(DatabaseError databaseError) {
+
+                                                mProgressDialog.dismiss();
                                             }
                                         });
                             }
@@ -115,6 +131,8 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
+
+                        mProgressDialog.dismiss();
                     }
                 });
     }
@@ -126,6 +144,7 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
 
         Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
         intent.putExtra("memberType", AccountListActivity.membershipType);
+        intent.putExtra("user_info", users);
         startActivity(intent);
     }
 }
