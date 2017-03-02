@@ -69,6 +69,8 @@
 
             <include layout="@layout/student_detail_info"></include>
 
+            <include layout="@layout/company_detail_info"></include>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

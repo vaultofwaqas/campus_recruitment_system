@@ -140,11 +140,9 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
     @Override
     public void onItemClick(int position) {
 
-        UserList userList  = companyArrayList.get(position);
-
         Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
         intent.putExtra("memberType", AccountListActivity.membershipType);
-        intent.putExtra("user_info", users);
+        intent.putExtra("user_info", companyArrayList.get(position));
         startActivity(intent);
     }
 }

@@ -89,7 +89,7 @@ public class AccountInfoActivity extends AppCompatActivity {
     private String companyAddressString;
     private String companyPhoneNumberString;
     private String companyWebPageString;
-    private Boolean companyVacancyCheck;
+    private Boolean companyVacancyCheck = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,25 +198,52 @@ public class AccountInfoActivity extends AppCompatActivity {
                     studentDateOfBirthString = studentDateOfBirth.getText().toString().trim();
                     studentMarksString = studentMarks.getText().toString().trim();
 
-                    if(userImageView.getTag().equals("0")){
-
-                        Toast.makeText(AccountInfoActivity.this, getString(R.string.student_profile_image_not_set),
-                                Toast.LENGTH_SHORT).show();
-
-                        return;
-                    }
-
                     if (TextUtils.isEmpty(studentNameString)
                             && TextUtils.isEmpty(studentIDString)
-                            && TextUtils.isEmpty(studentDateOfBirthString)
+                            && studentPhoneNumberString.equals("")
                             && TextUtils.isEmpty(studentPhoneNumberString)
                             && TextUtils.isEmpty(studentMarksString)) {
 
                         studentName.setError(getString(R.string.enter_student_name));
                         studentID.setError(getString(R.string.enter_student_id));
-                        studentPhoneNumber.setError(getString(R.string.enter_student_phone_number));
                         studentDateOfBirth.setError(getString(R.string.enter_date_of_birth));
+                        studentPhoneNumber.setError(getString(R.string.enter_student_phone_number));
                         studentMarks.setError(getString(R.string.enter_marks));
+
+                        return;
+                    }
+
+                    if (TextUtils.isEmpty(studentNameString)){
+
+                        studentName.setError(getString(R.string.enter_student_name));
+                        return;
+
+                    } else if (TextUtils.isEmpty(studentIDString)){
+
+                        studentID.setError(getString(R.string.enter_student_id));
+                        return;
+
+                    } else if(studentDateOfBirthString.equals("")){
+
+                        studentDateOfBirth.setError(getString(R.string.enter_date_of_birth));
+                        return;
+
+                    } else if (TextUtils.isEmpty(studentPhoneNumberString)){
+
+                        studentPhoneNumber.setError(getString(R.string.enter_student_phone_number));
+                        return;
+
+                    } else if (TextUtils.isEmpty(studentMarksString)){
+
+                        studentMarks.setError(getString(R.string.enter_marks));
+                        return;
+
+                    }
+
+                    if(userImageView.getTag().equals("0")){
+
+                        Toast.makeText(AccountInfoActivity.this, getString(R.string.student_profile_image_not_set),
+                                Toast.LENGTH_SHORT).show();
 
                         return;
                     }
@@ -310,14 +337,6 @@ public class AccountInfoActivity extends AppCompatActivity {
                     companyPhoneNumberString = companyPhoneNumber.getText().toString().trim();
                     companyWebPageString = companyWebPage.getText().toString().trim();
 
-                    if(userImageView.getTag().equals("0")){
-
-                        Toast.makeText(AccountInfoActivity.this, getString(R.string.company_profile_image_not_set),
-                                Toast.LENGTH_SHORT).show();
-
-                        return;
-                    }
-
                     if (TextUtils.isEmpty(companyNameString)
                             && TextUtils.isEmpty(companyAddressString)
                             && TextUtils.isEmpty(companyPhoneNumberString)
@@ -327,6 +346,35 @@ public class AccountInfoActivity extends AppCompatActivity {
                         companyAddress.setError(getString(R.string.enter_student_id));
                         companyPhoneNumber.setError(getString(R.string.enter_student_phone_number));
                         companyWebPage.setError(getString(R.string.enter_date_of_birth));
+
+                        return;
+                    }
+
+                    if (TextUtils.isEmpty(companyNameString)){
+
+                        companyName.setError(getString(R.string.enter_student_name));
+                        return;
+
+                    } else if (TextUtils.isEmpty(companyAddressString)){
+
+                        companyAddress.setError(getString(R.string.enter_student_id));
+                        return;
+
+                    } else if (TextUtils.isEmpty(companyPhoneNumberString)){
+
+                        companyPhoneNumber.setError(getString(R.string.enter_student_phone_number));
+                        return;
+
+                    } else if (TextUtils.isEmpty(companyWebPageString)){
+
+                        companyWebPage.setError(getString(R.string.enter_date_of_birth));
+                        return;
+                    }
+
+                    if(userImageView.getTag().equals("0")){
+
+                        Toast.makeText(AccountInfoActivity.this, getString(R.string.company_profile_image_not_set),
+                                Toast.LENGTH_SHORT).show();
 
                         return;
                     }

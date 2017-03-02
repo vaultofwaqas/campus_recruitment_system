@@ -2,13 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="16dp"
-    android:id="@+id/student_detail_info_id"
-    android:visibility="gone"
+    android:id="@+id/company_detail_info_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/student_detail_name"
+        android:id="@+id/company_detail_name"
         android:inputType="text"
         android:paddingLeft="2dp"
         android:paddingTop="16dp"
@@ -18,7 +17,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/student_detail_email"
+        android:id="@+id/company_detail_email"
         android:inputType="text"
         android:paddingLeft="2dp"
         android:paddingTop="16dp"
@@ -28,8 +27,8 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/student_detail_id"
-        android:inputType="number"
+        android:id="@+id/company_detail_address"
+        android:inputType="text"
         android:paddingLeft="2dp"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
@@ -38,18 +37,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/student_detail_date_of_birth"
-        android:paddingLeft="2dp"
-
-        android:paddingBottom="8dp"
-        android:textSize="18sp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/student_detail_phone_number"
+        android:id="@+id/company_detail_phone_number"
         android:inputType="phone"
         android:paddingLeft="2dp"
         android:paddingTop="16dp"
@@ -59,35 +47,40 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/student_detail_marks"
-        android:inputType="numberDecimal"
+        android:id="@+id/company_detail_web_page"
+        android:inputType="phone"
         android:paddingLeft="2dp"
         android:paddingTop="16dp"
-        android:paddingBottom="8dp"
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:layout_marginTop="36dp"
+        android:id="@+id/vacancy_available_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:gravity="center">
 
-        <RadioButton
-            android:id="@+id/student_detail_male"
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/student_male" />
+            android:layout_weight="3"
+            android:textSize="18sp"
+            android:textColor="#7986CB"
+            android:gravity="right"
+            android:text="@string/vacancy_available"/>
 
-        <RadioButton
-            android:id="@+id/student_detail_female"
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/student_female" />
+            android:layout_weight="1.5"
+            android:textSize="18sp"
+            android:textColor="#FF5722"
+            android:textStyle="bold"
+            android:paddingLeft="8dp"
+            android:gravity="left"
+            android:text="@string/apply"/>
 
     </LinearLayout>
-
 </LinearLayout>

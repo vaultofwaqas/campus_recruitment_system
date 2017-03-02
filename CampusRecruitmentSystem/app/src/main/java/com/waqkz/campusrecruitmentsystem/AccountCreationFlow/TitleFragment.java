@@ -32,6 +32,8 @@ public class TitleFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_title, container, false);
 
+        AccountCreationActivity.toolbar.setVisibility(View.GONE);
+
         AccountCreationActivity.toolBarText.setText(getString(R.string.app_name));
 
         attachingWidgets(rootView);
@@ -61,6 +63,7 @@ public class TitleFragment extends Fragment {
                         .addToBackStack("TitleFragment")
                         .commit();
 
+                AccountCreationActivity.toolbar.setVisibility(View.VISIBLE);
                 AccountCreationActivity.toolBarText.setText(getString(R.string.admin_login));
             }
         });
@@ -77,6 +80,7 @@ public class TitleFragment extends Fragment {
                         .addToBackStack("TitleFragment")
                         .commit();
 
+                AccountCreationActivity.toolbar.setVisibility(View.VISIBLE);
                 AccountCreationActivity.toolBarText.setText(getString(R.string.student_login));
             }
         });
@@ -93,6 +97,7 @@ public class TitleFragment extends Fragment {
                         .addToBackStack("TitleFragment")
                         .commit();
 
+                AccountCreationActivity.toolbar.setVisibility(View.VISIBLE);
                 AccountCreationActivity.toolBarText.setText(getString(R.string.company_login));
             }
         });

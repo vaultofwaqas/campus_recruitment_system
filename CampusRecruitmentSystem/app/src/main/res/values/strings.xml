@@ -57,6 +57,8 @@
     <string name="vacancy_available_button">Apply</string>
     <string name="student_detail_info">Student Detail Info</string>
     <string name="company_detail_info">Company Detail Info</string>
+    <string name="vacancy_available_apply">Vacancies Available: </string>
+    <string name="apply">Apply</string>
 
 
 </resources>

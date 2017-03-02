@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Build;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,7 @@ public class AccountCreationActivity extends AppCompatActivity implements TitleF
     }
 
     private static Context context;
+    public static Toolbar toolbar;
     public static TextView toolBarText;
 
     private FirebaseAuth mAuth;
@@ -37,7 +39,7 @@ public class AccountCreationActivity extends AppCompatActivity implements TitleF
 
         context = this.getApplicationContext();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
         attachingWidgets();

@@ -41,6 +41,14 @@ public class AccountDetailActivity extends AppCompatActivity{
     private RadioButton maleRadioButton;
     private RadioButton femaleRadioButton;
 
+    private LinearLayout companyDetailLinearLayout;
+    private TextView companyDetailName;
+    private TextView companyDetailEmail;
+    private TextView companyDetailPhoneNumber;
+    private TextView companyDetailAddress;
+    private TextView companyDetailWebPage;
+    private LinearLayout companyVacancyAvailableCheck;
+
     private String membershipType;
     private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
@@ -72,7 +80,26 @@ public class AccountDetailActivity extends AppCompatActivity{
 
             collapsingToolbar.setTitle(getString(R.string.company_detail_info));
 
+            Glide.with(getApplicationContext()).load(userList.getUserImageURL()).asBitmap()
+                    .error(R.drawable.default_company_image).centerCrop().into(userDetailImage);
 
+            companyDetailLinearLayout.setVisibility(View.VISIBLE);
+            studentDetailLinearLayout.setVisibility(View.GONE);
+
+            companyDetailName.setText(userList.getUserName());
+            companyDetailEmail.setText(userList.getUserEmail());
+            companyDetailPhoneNumber.setText(userList.getUserPhoneNumber());
+            companyDetailAddress.setText(userList.getUserCompanyAddress());
+            companyDetailWebPage.setText(userList.getUserCompanyWebPage());
+
+            if (userList.getUserCompanyVacancyAvailableCheck() == false){
+
+                companyVacancyAvailableCheck.setVisibility(View.GONE);
+
+            } else if (userList.getUserCompanyVacancyAvailableCheck() == true){
+
+                companyVacancyAvailableCheck.setVisibility(View.VISIBLE);
+            }
 
         } else if (membershipType.equals(getString(R.string.company_type))){
 
@@ -81,6 +108,7 @@ public class AccountDetailActivity extends AppCompatActivity{
             Glide.with(getApplicationContext()).load(userList.getUserImageURL()).asBitmap()
                     .error(R.drawable.default_student).centerCrop().into(userDetailImage);
 
+            companyDetailLinearLayout.setVisibility(View.GONE);
             studentDetailLinearLayout.setVisibility(View.VISIBLE);
 
             studentDetailName.setText(userList.getUserName());
@@ -126,6 +154,14 @@ public class AccountDetailActivity extends AppCompatActivity{
         studentDetailMarks = (TextView) findViewById(R.id.student_detail_marks);
         maleRadioButton = (RadioButton) findViewById(R.id.student_detail_male);
         femaleRadioButton = (RadioButton) findViewById(R.id.student_detail_female);
+
+        companyDetailLinearLayout = (LinearLayout) findViewById(R.id.company_detail_info_id);
+        companyDetailName = (TextView) findViewById(R.id.company_detail_name);
+        companyDetailEmail = (TextView) findViewById(R.id.company_detail_email);
+        companyDetailPhoneNumber = (TextView) findViewById(R.id.company_detail_phone_number);
+        companyDetailAddress = (TextView) findViewById(R.id.company_detail_address);
+        companyDetailWebPage = (TextView) findViewById(R.id.company_detail_web_page);
+        companyVacancyAvailableCheck = (LinearLayout) findViewById(R.id.vacancy_available_id);
     }
 
     public void initializingWidgets(){
