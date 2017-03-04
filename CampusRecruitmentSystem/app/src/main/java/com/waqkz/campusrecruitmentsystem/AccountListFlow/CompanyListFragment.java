@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,8 +31,7 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
 
     private RecyclerView companyRecyclerView;
     private CompanyListRecyclerAdapter companyListRecyclerAdapter;
-    private ArrayList<UserList> companyArrayList;
-    private UserList users;
+    private ArrayList<CompanyInfo> companyArrayList;
 
     private ProgressDialog mProgressDialog;
 
@@ -55,7 +55,7 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
 
         mProgressDialog = new ProgressDialog(getActivity());
 
-        companyArrayList = new ArrayList<UserList>();
+        companyArrayList = new ArrayList<CompanyInfo>();
 
         attachingComponents();
 
@@ -79,7 +79,7 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
         FirebaseDatabase.getInstance().getReference()
                 .child(getString(R.string.campus))
                 .child(getString(R.string.company_type))
-                .child(getString(R.string.company_login_info))
+                .child(getString(R.string.company_info))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -88,44 +88,14 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
 
                             for (DataSnapshot data: dataSnapshot.getChildren()) {
 
-                                final SignUp signUp = data.getValue(SignUp.class);
+                                CompanyInfo companyInfo = data.getValue(CompanyInfo.class);
 
-                                FirebaseDatabase.getInstance().getReference()
-                                        .child(getString(R.string.campus))
-                                        .child(getString(R.string.company_type))
-                                        .child(getString(R.string.company_info))
-                                        .child(signUp.getUUID())
-                                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                companyArrayList.add(companyInfo);
 
-                                                if (dataSnapshot.exists()){
-
-                                                    CompanyInfo companyInfo = dataSnapshot.getValue(CompanyInfo.class);
-
-                                                    users = new UserList(signUp.getUUID(),
-                                                            signUp.getEmail(),
-                                                            companyInfo.getCompanyName(),
-                                                            companyInfo.getCompanyAddress(),
-                                                            companyInfo.getCompanyPhoneNumber(),
-                                                            companyInfo.getCompanyURL(),
-                                                            companyInfo.getCompanyVacancyAvailableCheck(),
-                                                            companyInfo.getCompanyWebPage());
-
-                                                    companyArrayList.add(users);
-                                                    companyListRecyclerAdapter.notifyDataSetChanged();
-
-                                                    mProgressDialog.dismiss();
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
-                                                mProgressDialog.dismiss();
-                                            }
-                                        });
                             }
+                            companyListRecyclerAdapter.notifyDataSetChanged();
+
+                            mProgressDialog.dismiss();
                         }
                     }
 
@@ -135,6 +105,8 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
                         mProgressDialog.dismiss();
                     }
                 });
+
+        mProgressDialog.dismiss();
     }
 
     @Override
@@ -142,7 +114,7 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
 
         Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
         intent.putExtra("memberType", AccountListActivity.membershipType);
-        intent.putExtra("user_info", companyArrayList.get(position));
+        intent.putExtra("company_info", companyArrayList.get(position));
         startActivity(intent);
     }
 }

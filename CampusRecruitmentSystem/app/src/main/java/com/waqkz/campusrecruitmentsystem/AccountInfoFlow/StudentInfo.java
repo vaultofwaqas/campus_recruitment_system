@@ -1,11 +1,15 @@
 package com.waqkz.campusrecruitmentsystem.AccountInfoFlow;
 
+import java.io.Serializable;
+
 /**
  * Created by Waqas on 2/25/2017.
  */
 
-public class StudentInfo {
+public class StudentInfo implements Serializable {
 
+    private String studentUUID;
+    private String studentEmail;
     private String studentName;
     private String studentID;
     private String studentPhoneNumber;
@@ -17,7 +21,9 @@ public class StudentInfo {
     public StudentInfo() {
     }
 
-    public StudentInfo(String studentName,
+    public StudentInfo(String studentUUID,
+                       String studentEmail,
+                       String studentName,
                        String studentID,
                        String studentPhoneNumber,
                        String studentDateOfBirth,
@@ -25,6 +31,8 @@ public class StudentInfo {
                        String studentGender,
                        String studentURL) {
 
+        this.studentUUID = studentUUID;
+        this.studentEmail = studentEmail;
         this.studentName = studentName;
         this.studentID = studentID;
         this.studentPhoneNumber = studentPhoneNumber;
@@ -32,6 +40,22 @@ public class StudentInfo {
         this.studentMarks = studentMarks;
         this.studentGender = studentGender;
         this.studentURL = studentURL;
+    }
+
+    public String getStudentUUID() {
+        return studentUUID;
+    }
+
+    public void setStudentUUID(String studentUUID) {
+        this.studentUUID = studentUUID;
+    }
+
+    public String getStudentEmail() {
+        return studentEmail;
+    }
+
+    public void setStudentEmail(String studentEmail) {
+        this.studentEmail = studentEmail;
     }
 
     public String getStudentName() {

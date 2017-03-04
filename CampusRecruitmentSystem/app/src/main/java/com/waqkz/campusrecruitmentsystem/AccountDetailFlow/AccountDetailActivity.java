@@ -18,14 +18,15 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.elmargomez.typer.Font;
-import com.elmargomez.typer.Typer;
 import com.google.firebase.auth.FirebaseAuth;
 import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.AccountCreationActivity;
-import com.waqkz.campusrecruitmentsystem.AccountListFlow.UserList;
+import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.CompanyInfo;
+import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.StudentInfo;
 import com.waqkz.campusrecruitmentsystem.R;
 
 public class AccountDetailActivity extends AppCompatActivity{
+
+    public static TextView toolBarText;
 
     private FloatingActionButton detailSignOut;
 
@@ -52,7 +53,8 @@ public class AccountDetailActivity extends AppCompatActivity{
     private String membershipType;
     private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
-    public static UserList userList;
+    public static CompanyInfo companyInfo;
+    public static StudentInfo studentInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,8 @@ public class AccountDetailActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
         membershipType = intent.getExtras().getString("memberType");
-        userList = (UserList) intent.getSerializableExtra("user_info");
+        companyInfo = (CompanyInfo) intent.getSerializableExtra("company_info");
+        studentInfo = (StudentInfo) intent.getSerializableExtra("student_info");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -71,8 +74,6 @@ public class AccountDetailActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        Typeface font = Typer.set(getApplicationContext()).getFont(Font.ROBOTO_MEDIUM);
-        collapsingToolbar.setExpandedTitleTypeface(font);
 
         attachingWidgets();
 
@@ -80,23 +81,23 @@ public class AccountDetailActivity extends AppCompatActivity{
 
             collapsingToolbar.setTitle(getString(R.string.company_detail_info));
 
-            Glide.with(getApplicationContext()).load(userList.getUserImageURL()).asBitmap()
+            Glide.with(getApplicationContext()).load(companyInfo.getCompanyURL()).asBitmap()
                     .error(R.drawable.default_company_image).centerCrop().into(userDetailImage);
 
             companyDetailLinearLayout.setVisibility(View.VISIBLE);
             studentDetailLinearLayout.setVisibility(View.GONE);
 
-            companyDetailName.setText(userList.getUserName());
-            companyDetailEmail.setText(userList.getUserEmail());
-            companyDetailPhoneNumber.setText(userList.getUserPhoneNumber());
-            companyDetailAddress.setText(userList.getUserCompanyAddress());
-            companyDetailWebPage.setText(userList.getUserCompanyWebPage());
+            companyDetailName.setText(companyInfo.getCompanyName());
+            companyDetailEmail.setText(companyInfo.getCompanyEmail());
+            companyDetailPhoneNumber.setText(companyInfo.getCompanyPhoneNumber());
+            companyDetailAddress.setText(companyInfo.getCompanyAddress());
+            companyDetailWebPage.setText(companyInfo.getCompanyWebPage());
 
-            if (userList.getUserCompanyVacancyAvailableCheck() == false){
+            if (companyInfo.getCompanyVacancyAvailableCheck() == false){
 
                 companyVacancyAvailableCheck.setVisibility(View.GONE);
 
-            } else if (userList.getUserCompanyVacancyAvailableCheck() == true){
+            } else if (companyInfo.getCompanyVacancyAvailableCheck() == true){
 
                 companyVacancyAvailableCheck.setVisibility(View.VISIBLE);
             }
@@ -105,20 +106,20 @@ public class AccountDetailActivity extends AppCompatActivity{
 
             collapsingToolbar.setTitle(getString(R.string.student_detail_info));
 
-            Glide.with(getApplicationContext()).load(userList.getUserImageURL()).asBitmap()
+            Glide.with(getApplicationContext()).load(studentInfo.getStudentURL()).asBitmap()
                     .error(R.drawable.default_student).centerCrop().into(userDetailImage);
 
             companyDetailLinearLayout.setVisibility(View.GONE);
             studentDetailLinearLayout.setVisibility(View.VISIBLE);
 
-            studentDetailName.setText(userList.getUserName());
-            studentDetailEmail.setText(userList.getUserEmail());
-            studentDetailID.setText(userList.getUserStudentID());
-            studentDetailDateOfBirth.setText(userList.getUserStudentDateOfBirth());
-            studentDetailPhoneNumber.setText(userList.getUserPhoneNumber());
-            studentDetailMarks.setText(userList.getUserStudentMarks());
+            studentDetailName.setText(studentInfo.getStudentName());
+            studentDetailEmail.setText(studentInfo.getStudentEmail());
+            studentDetailID.setText(studentInfo.getStudentID());
+            studentDetailDateOfBirth.setText(studentInfo.getStudentDateOfBirth());
+            studentDetailPhoneNumber.setText(studentInfo.getStudentPhoneNumber());
+            studentDetailMarks.setText(studentInfo.getStudentMarks());
 
-            if (userList.getUserStudentGender().equals(getString(R.string.student_male))){
+            if (studentInfo.getStudentGender().equals(getString(R.string.student_male))){
 
                 maleRadioButton.setChecked(true);
                 maleRadioButton.setEnabled(true);
@@ -126,7 +127,7 @@ public class AccountDetailActivity extends AppCompatActivity{
                 femaleRadioButton.setChecked(false);
                 femaleRadioButton.setEnabled(false);
 
-            } else if (userList.getUserStudentGender().equals(getString(R.string.student_female))){
+            } else if (studentInfo.getStudentGender().equals(getString(R.string.student_female))){
 
                 maleRadioButton.setChecked(false);
                 maleRadioButton.setEnabled(false);
@@ -140,6 +141,8 @@ public class AccountDetailActivity extends AppCompatActivity{
     }
 
     public void attachingWidgets(){
+
+        toolBarText = (TextView) findViewById(R.id.title_page);
 
         detailSignOut = (FloatingActionButton) findViewById(R.id.detail_sign_out);
 

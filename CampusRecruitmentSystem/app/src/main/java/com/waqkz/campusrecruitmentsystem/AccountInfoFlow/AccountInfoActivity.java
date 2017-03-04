@@ -273,7 +273,9 @@ public class AccountInfoActivity extends AppCompatActivity {
                         @Override
                         public void success(String url) {
 
-                            StudentInfo studentInfo = new StudentInfo(studentNameString,
+                            StudentInfo studentInfo = new StudentInfo(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                                    FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                                    studentNameString,
                                     studentIDString,
                                     studentPhoneNumberString,
                                     studentDateOfBirthString,
@@ -387,7 +389,9 @@ public class AccountInfoActivity extends AppCompatActivity {
                         @Override
                         public void success(String url) {
 
-                            CompanyInfo companyInfo = new CompanyInfo(companyNameString,
+                            CompanyInfo companyInfo = new CompanyInfo(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                                    FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                                    companyNameString,
                                     companyAddressString,
                                     companyPhoneNumberString,
                                     companyWebPageString,

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.StudentInfo;
 import com.waqkz.campusrecruitmentsystem.R;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 public class StudentListRecyclerAdapter extends RecyclerView.Adapter<StudentListRecyclerAdapter.StudentListHolder> {
 
-    private ArrayList<UserList> studentListArrayList;
+    private ArrayList<StudentInfo> studentListArrayList;
     private LayoutInflater inflater;
 
     private itemClickCallback itemClickCallback;
@@ -34,7 +35,7 @@ public class StudentListRecyclerAdapter extends RecyclerView.Adapter<StudentList
         this.itemClickCallback = itemClickCallback;
     }
 
-    public StudentListRecyclerAdapter(ArrayList<UserList> studentListData, Context context) {
+    public StudentListRecyclerAdapter(ArrayList<StudentInfo> studentListData, Context context) {
 
         studentListArrayList = studentListData;
         this.inflater = LayoutInflater.from(context);
@@ -51,14 +52,14 @@ public class StudentListRecyclerAdapter extends RecyclerView.Adapter<StudentList
     @Override
     public void onBindViewHolder(StudentListHolder holder, int position) {
 
-        UserList userList = studentListArrayList.get(position);
+        StudentInfo studentInfo = studentListArrayList.get(position);
 
-        Glide.with(inflater.getContext()).load(userList.getUserImageURL()).asBitmap()
+        Glide.with(inflater.getContext()).load(studentInfo.getStudentURL()).asBitmap()
                 .error(R.drawable.default_student).centerCrop().into(holder.studentImage);
 
-        holder.studentName.setText(userList.getUserName());
-        holder.studentID.setText(userList.getUserStudentID());
-        holder.studentEmail.setText(userList.getUserEmail());
+        holder.studentName.setText(studentInfo.getStudentName());
+        holder.studentID.setText(studentInfo.getStudentID());
+        holder.studentEmail.setText(studentInfo.getStudentEmail());
 
     }
 

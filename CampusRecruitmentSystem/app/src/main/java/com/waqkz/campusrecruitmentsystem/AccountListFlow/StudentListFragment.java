@@ -14,8 +14,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.AccountCreationActivity;
-import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.SignUp;
 import com.waqkz.campusrecruitmentsystem.AccountDetailFlow.AccountDetailActivity;
 import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.StudentInfo;
 import com.waqkz.campusrecruitmentsystem.R;
@@ -29,8 +27,7 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
 
     private RecyclerView studentRecyclerView;
     private StudentListRecyclerAdapter studentListRecyclerAdapter;
-    private ArrayList<UserList> studentArrayList;
-    private UserList users;
+    private ArrayList<StudentInfo> studentArrayList;
 
     private ProgressDialog mProgressDialog;
 
@@ -54,7 +51,7 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
 
         mProgressDialog = new ProgressDialog(getActivity());
 
-        studentArrayList = new ArrayList<UserList>();
+        studentArrayList = new ArrayList<StudentInfo>();
 
         attachingComponents();
 
@@ -78,7 +75,7 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
         FirebaseDatabase.getInstance().getReference()
                 .child(getString(R.string.campus))
                 .child(getString(R.string.student_type))
-                .child(getString(R.string.student_login_info))
+                .child(getString(R.string.student_info))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -87,45 +84,13 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
 
                             for (DataSnapshot data: dataSnapshot.getChildren()) {
 
-                                final SignUp signUp = data.getValue(SignUp.class);
+                                StudentInfo studentInfo = data.getValue(StudentInfo.class);
 
-                                FirebaseDatabase.getInstance().getReference()
-                                        .child(getString(R.string.campus))
-                                        .child(getString(R.string.student_type))
-                                        .child(getString(R.string.student_info))
-                                        .child(signUp.getUUID())
-                                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                studentArrayList.add(studentInfo);
 
-                                                if (dataSnapshot.exists()){
-
-                                                    StudentInfo studentInfo = dataSnapshot.getValue(StudentInfo.class);
-
-                                                    users = new UserList(signUp.getUUID(),
-                                                            signUp.getEmail(),
-                                                            studentInfo.getStudentGender(),
-                                                            studentInfo.getStudentMarks(),
-                                                            studentInfo.getStudentName(),
-                                                            studentInfo.getStudentID(),
-                                                            studentInfo.getStudentPhoneNumber(),
-                                                            studentInfo.getStudentURL(),
-                                                            studentInfo.getStudentDateOfBirth());
-
-                                                    studentArrayList.add(users);
-                                                    studentListRecyclerAdapter.notifyDataSetChanged();
-
-                                                    mProgressDialog.dismiss();
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
-                                                mProgressDialog.dismiss();
-                                            }
-                                        });
                             }
+                            studentListRecyclerAdapter.notifyDataSetChanged();
+                            mProgressDialog.dismiss();
                         }
                     }
 
@@ -142,7 +107,7 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
 
         Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
         intent.putExtra("memberType", AccountListActivity.membershipType);
-        intent.putExtra("user_info", studentArrayList.get(position));
+        intent.putExtra("student_info", studentArrayList.get(position));
         startActivity(intent);
     }
 }

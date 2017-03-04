@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.CompanyInfo;
 import com.waqkz.campusrecruitmentsystem.R;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 public class CompanyListRecyclerAdapter extends RecyclerView.Adapter<CompanyListRecyclerAdapter.CompanyListHolder> {
 
-    private ArrayList<UserList> companyListArrayList;
+    private ArrayList<CompanyInfo> companyListArrayList;
     private LayoutInflater inflater;
 
     private itemClickCallback itemClickCallback;
@@ -34,9 +35,9 @@ public class CompanyListRecyclerAdapter extends RecyclerView.Adapter<CompanyList
         this.itemClickCallback = itemClickCallback;
     }
 
-    public CompanyListRecyclerAdapter(ArrayList<UserList> studentListData, Context context) {
+    public CompanyListRecyclerAdapter(ArrayList<CompanyInfo> companyListData, Context context) {
 
-        companyListArrayList = studentListData;
+        companyListArrayList = companyListData;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -51,14 +52,14 @@ public class CompanyListRecyclerAdapter extends RecyclerView.Adapter<CompanyList
     @Override
     public void onBindViewHolder(CompanyListHolder holder, int position) {
 
-        UserList userList = companyListArrayList.get(position);
+        CompanyInfo companyList = companyListArrayList.get(position);
 
-        Glide.with(inflater.getContext()).load(userList.getUserImageURL()).asBitmap()
+        Glide.with(inflater.getContext()).load(companyList.getCompanyURL()).asBitmap()
                 .error(R.drawable.default_company_image).centerCrop().into(holder.companyImage);
 
-        holder.companyName.setText(userList.getUserName());
-        holder.companyWebPage.setText(userList.getUserCompanyWebPage());
-        holder.companyEmail.setText(userList.getUserEmail());
+        holder.companyName.setText(companyList.getCompanyName());
+        holder.companyWebPage.setText(companyList.getCompanyWebPage());
+        holder.companyEmail.setText(companyList.getCompanyEmail());
 
     }
 

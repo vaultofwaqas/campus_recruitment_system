@@ -1,11 +1,15 @@
 package com.waqkz.campusrecruitmentsystem.AccountInfoFlow;
 
+import java.io.Serializable;
+
 /**
  * Created by Waqas on 2/25/2017.
  */
 
-public class CompanyInfo {
+public class CompanyInfo implements Serializable {
 
+    private String companyUUID;
+    private String companyEmail;
     private String companyName;
     private String companyAddress;
     private String companyPhoneNumber;
@@ -16,19 +20,39 @@ public class CompanyInfo {
     public CompanyInfo() {
     }
 
-    public CompanyInfo(String companyName,
+    public CompanyInfo(String companyUUID,
+                       String companyEmail,
+                       String companyName,
                        String companyAddress,
                        String companyPhoneNumber,
                        String companyWebPage,
                        Boolean companyVacancyAvailableCheck,
                        String companyURL) {
 
+        this.companyUUID = companyUUID;
+        this.companyEmail = companyEmail;
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyPhoneNumber = companyPhoneNumber;
         this.companyWebPage = companyWebPage;
         this.companyVacancyAvailableCheck = companyVacancyAvailableCheck;
         this.companyURL = companyURL;
+    }
+
+    public String getCompanyUUID() {
+        return companyUUID;
+    }
+
+    public void setCompanyUUID(String companyUUID) {
+        this.companyUUID = companyUUID;
+    }
+
+    public String getCompanyEmail() {
+        return companyEmail;
+    }
+
+    public void setCompanyEmail(String companyEmail) {
+        this.companyEmail = companyEmail;
     }
 
     public String getCompanyName() {

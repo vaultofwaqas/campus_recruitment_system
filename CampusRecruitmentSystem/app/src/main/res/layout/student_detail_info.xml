@@ -3,7 +3,6 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:id="@+id/student_detail_info_id"
-    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -40,7 +39,7 @@
     <TextView
         android:id="@+id/student_detail_date_of_birth"
         android:paddingLeft="2dp"
-
+        android:paddingTop="16dp"
         android:paddingBottom="8dp"
         android:textSize="18sp"
         android:focusable="true"
