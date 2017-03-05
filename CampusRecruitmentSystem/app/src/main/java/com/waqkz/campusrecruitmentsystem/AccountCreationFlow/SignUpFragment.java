@@ -167,7 +167,8 @@ public class SignUpFragment extends Fragment {
 
                             mProgressDialog.dismiss();
 
-                            Snackbar.make(v, R.string.account_creation_succesful, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            Snackbar.make(v, R.string.account_creation_succesful, Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                         }
                     }
                 });

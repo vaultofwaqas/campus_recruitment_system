@@ -59,6 +59,9 @@
     <string name="company_detail_info">Company Detail Info</string>
     <string name="vacancy_available_apply">Vacancies Available: </string>
     <string name="apply">Apply</string>
+    <string name="student_resume">Student Resume</string>
+    <string name="resume_sent_successfully">Resume Sent Successfully.</string>
+    <string name="resume_sending_failed">Resume Sending Failed</string>
 
 
 </resources>

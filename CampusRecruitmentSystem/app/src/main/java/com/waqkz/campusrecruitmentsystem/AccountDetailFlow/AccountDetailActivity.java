@@ -1,10 +1,12 @@
 package com.waqkz.campusrecruitmentsystem.AccountDetailFlow;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +21,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.AccountCreationActivity;
 import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.CompanyInfo;
 import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.StudentInfo;
@@ -50,6 +56,8 @@ public class AccountDetailActivity extends AppCompatActivity{
     private TextView companyDetailWebPage;
     private LinearLayout companyVacancyAvailableCheck;
 
+    private ProgressDialog mProgressDialog;
+
     private String membershipType;
     private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
@@ -69,6 +77,8 @@ public class AccountDetailActivity extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
 
         saveUserPref();
+
+        mProgressDialog = new ProgressDialog(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -100,7 +110,75 @@ public class AccountDetailActivity extends AppCompatActivity{
             } else if (companyInfo.getCompanyVacancyAvailableCheck() == true){
 
                 companyVacancyAvailableCheck.setVisibility(View.VISIBLE);
+                companyVacancyAvailableCheck.setEnabled(true);
             }
+
+            FirebaseDatabase.getInstance().getReference()
+                    .child(getString(R.string.campus))
+                    .child(getString(R.string.company_type))
+                    .child(getString(R.string.student_resume))
+                    .child(companyInfo.getCompanyUUID())
+                    .child(mAuth.getCurrentUser().getUid())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.exists()){
+
+                                companyVacancyAvailableCheck.setVisibility(View.GONE);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+            companyVacancyAvailableCheck.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+
+                    mProgressDialog.setMessage("Your resume is being sent.");
+                    mProgressDialog.show();
+
+                    FirebaseDatabase.getInstance().getReference()
+                            .child(getString(R.string.campus))
+                            .child(getString(R.string.student_type))
+                            .child(getString(R.string.student_info))
+                            .child(mAuth.getCurrentUser().getUid())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    if (dataSnapshot.exists()){
+
+                                        FirebaseDatabase.getInstance().getReference()
+                                                .child(getString(R.string.campus))
+                                                .child(getString(R.string.company_type))
+                                                .child(getString(R.string.student_resume))
+                                                .child(companyInfo.getCompanyUUID())
+                                                .child(mAuth.getCurrentUser().getUid())
+                                                .setValue(dataSnapshot.getValue());
+
+                                        mProgressDialog.dismiss();
+                                        companyVacancyAvailableCheck.setVisibility(View.GONE);
+                                        Snackbar.make(v, getString(R.string.resume_sent_successfully), Snackbar.LENGTH_LONG)
+                                                .setAction("Action", null).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                    mProgressDialog.dismiss();
+
+                                    Snackbar.make(v, getString(R.string.resume_sending_failed), Snackbar.LENGTH_LONG)
+                                            .setAction("Action", null).show();
+                                }
+                            });
+                }
+            });
 
         } else if (membershipType.equals(getString(R.string.company_type))){
 
