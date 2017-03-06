@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.AccountCreationActivity;
 import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.CompanyInfo;
 import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.StudentInfo;
+import com.waqkz.campusrecruitmentsystem.AccountListFlow.StudentListFragment;
 import com.waqkz.campusrecruitmentsystem.R;
 
 public class AccountDetailActivity extends AppCompatActivity{
@@ -47,6 +48,9 @@ public class AccountDetailActivity extends AppCompatActivity{
     private TextView studentDetailMarks;
     private RadioButton maleRadioButton;
     private RadioButton femaleRadioButton;
+    private LinearLayout companyVacancyAvailableCheck;
+    private LinearLayout companyVacancyCancellationCheck;
+    private LinearLayout noCompanyVacancy;
 
     private LinearLayout companyDetailLinearLayout;
     private TextView companyDetailName;
@@ -54,7 +58,9 @@ public class AccountDetailActivity extends AppCompatActivity{
     private TextView companyDetailPhoneNumber;
     private TextView companyDetailAddress;
     private TextView companyDetailWebPage;
-    private LinearLayout companyVacancyAvailableCheck;
+    private LinearLayout sentResumeUI;
+    private LinearLayout acceptStudentResume;
+    private LinearLayout cancelStudentResume;
 
     private ProgressDialog mProgressDialog;
 
@@ -105,12 +111,15 @@ public class AccountDetailActivity extends AppCompatActivity{
 
             if (companyInfo.getCompanyVacancyAvailableCheck() == false){
 
+                noCompanyVacancy.setVisibility(View.VISIBLE);
                 companyVacancyAvailableCheck.setVisibility(View.GONE);
+                companyVacancyCancellationCheck.setVisibility(View.GONE);
 
             } else if (companyInfo.getCompanyVacancyAvailableCheck() == true){
 
+                noCompanyVacancy.setVisibility(View.GONE);
                 companyVacancyAvailableCheck.setVisibility(View.VISIBLE);
-                companyVacancyAvailableCheck.setEnabled(true);
+                companyVacancyCancellationCheck.setVisibility(View.GONE);
             }
 
             FirebaseDatabase.getInstance().getReference()
@@ -125,7 +134,9 @@ public class AccountDetailActivity extends AppCompatActivity{
 
                             if (dataSnapshot.exists()){
 
+                                noCompanyVacancy.setVisibility(View.GONE);
                                 companyVacancyAvailableCheck.setVisibility(View.GONE);
+                                companyVacancyCancellationCheck.setVisibility(View.VISIBLE);
                             }
                         }
 
@@ -162,7 +173,9 @@ public class AccountDetailActivity extends AppCompatActivity{
                                                 .setValue(dataSnapshot.getValue());
 
                                         mProgressDialog.dismiss();
+                                        noCompanyVacancy.setVisibility(View.GONE);
                                         companyVacancyAvailableCheck.setVisibility(View.GONE);
+                                        companyVacancyCancellationCheck.setVisibility(View.VISIBLE);
                                         Snackbar.make(v, getString(R.string.resume_sent_successfully), Snackbar.LENGTH_LONG)
                                                 .setAction("Action", null).show();
                                     }
@@ -177,6 +190,28 @@ public class AccountDetailActivity extends AppCompatActivity{
                                             .setAction("Action", null).show();
                                 }
                             });
+                }
+            });
+
+            companyVacancyCancellationCheck.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    FirebaseDatabase.getInstance().getReference()
+                            .child(getString(R.string.campus))
+                            .child(getString(R.string.company_type))
+                            .child(getString(R.string.student_resume))
+                            .child(companyInfo.getCompanyUUID())
+                            .child(mAuth.getCurrentUser().getUid())
+                            .setValue(null);
+
+                    noCompanyVacancy.setVisibility(View.GONE);
+                    companyVacancyAvailableCheck.setVisibility(View.VISIBLE);
+                    companyVacancyCancellationCheck.setVisibility(View.GONE);
+
+                    Snackbar.make(v, getString(R.string.resume_cancelled_successfully), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
                 }
             });
 
@@ -213,6 +248,46 @@ public class AccountDetailActivity extends AppCompatActivity{
                 femaleRadioButton.setChecked(true);
                 femaleRadioButton.setEnabled(true);
             }
+
+            FirebaseDatabase.getInstance().getReference()
+                    .child(getString(R.string.campus))
+                    .child(getString(R.string.company_type))
+                    .child(getString(R.string.student_resume))
+                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child(studentInfo.getStudentUUID())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.exists()){
+
+                                cancelStudentResume.setVisibility(View.VISIBLE);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+            cancelStudentResume.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    FirebaseDatabase.getInstance().getReference()
+                            .child(getString(R.string.campus))
+                            .child(getString(R.string.company_type))
+                            .child(getString(R.string.student_resume))
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child(studentInfo.getStudentUUID())
+                            .setValue(null);
+
+                    StudentListFragment.appliedStudentList();
+
+                    finish();
+                }
+            });
         }
 
         initializingWidgets();
@@ -235,6 +310,9 @@ public class AccountDetailActivity extends AppCompatActivity{
         studentDetailMarks = (TextView) findViewById(R.id.student_detail_marks);
         maleRadioButton = (RadioButton) findViewById(R.id.student_detail_male);
         femaleRadioButton = (RadioButton) findViewById(R.id.student_detail_female);
+        companyVacancyAvailableCheck = (LinearLayout) findViewById(R.id.vacancy_available_id);
+        companyVacancyCancellationCheck = (LinearLayout) findViewById(R.id.vacancy_available_cancellation);
+        noCompanyVacancy = (LinearLayout) findViewById(R.id.no_vacancy);
 
         companyDetailLinearLayout = (LinearLayout) findViewById(R.id.company_detail_info_id);
         companyDetailName = (TextView) findViewById(R.id.company_detail_name);
@@ -242,7 +320,7 @@ public class AccountDetailActivity extends AppCompatActivity{
         companyDetailPhoneNumber = (TextView) findViewById(R.id.company_detail_phone_number);
         companyDetailAddress = (TextView) findViewById(R.id.company_detail_address);
         companyDetailWebPage = (TextView) findViewById(R.id.company_detail_web_page);
-        companyVacancyAvailableCheck = (LinearLayout) findViewById(R.id.vacancy_available_id);
+        cancelStudentResume = (LinearLayout) findViewById(R.id.student_resume_cancellation);
     }
 
     public void initializingWidgets(){

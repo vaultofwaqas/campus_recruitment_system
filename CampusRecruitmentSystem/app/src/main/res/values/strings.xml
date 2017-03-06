@@ -9,6 +9,15 @@
     <string name="student_type">Student</string>
     <string name="company_type">Company</string>
 
+    <string name="admin_login_info">admin_user_login_info</string>
+    <string name="student_login_info">student_user_login_info</string>
+    <string name="company_login_info">company_user_login_info</string>
+
+    <string name="student_info">student_user_detail_Info</string>
+    <string name="company_info">company_user_detail_info</string>
+
+    <string name="student_resume">student_user_resume</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user_sign_in">Sign In</string>
@@ -39,29 +48,40 @@
     <string name="enter_company_web_page">Enter Company Web Page</string>
     <string name="vacancy_available">Vacancies Available:</string>
     <string name="user_not_found">User Not Found</string>
-    <string name="student_info">Student_Info</string>
     <string name="error_upload_image">Error Uploading Image</string>
     <string name="student_profile_image_not_set">Student\'s Profile Image not set.</string>
-    <string name="student_login_info">student_login_info</string>
-    <string name="company_login_info">company_login_info</string>
-    <string name="admin_login_info">admin_login_info</string>
     <string name="company_profile_image_not_set">Company Profile Image not set.</string>
     <string name="prefKey">USER_Info</string>
     <string name="prefType">USER_Type</string>
-    <string name="company_info">Company_info</string>
     <string name="settings_menu_item">Sign Out</string>
     <string name="student_id">studentID</string>
     <string name="company_name">companyName</string>
-    <string name="student_list_info">Student List Info</string>
-    <string name="company_list_info">Company List Info</string>
+    <string name="student_list_info">Student List</string>
+    <string name="company_list_info">Company List</string>
     <string name="vacancy_available_button">Apply</string>
-    <string name="student_detail_info">Student Detail Info</string>
-    <string name="company_detail_info">Company Detail Info</string>
+    <string name="student_detail_info">Detail Student Information</string>
+    <string name="company_detail_info">Detail Company Information</string>
     <string name="vacancy_available_apply">Vacancies Available: </string>
     <string name="apply">Apply</string>
-    <string name="student_resume">Student Resume</string>
     <string name="resume_sent_successfully">Resume Sent Successfully.</string>
     <string name="resume_sending_failed">Resume Sending Failed</string>
+    <string name="list_of_applied_students">List Of Applied Students</string>
+    <string name="list_of_students">List of Students</string>
+    <string name="already_applied">Your application is sent,</string>
+    <string name="want_to_cancel">cancel?</string>
+    <string name="no_vacancies">No Vacancies Available.</string>
+    <string name="resume_cancelled_successfully">Resume Cancelled Successfully.</string>
+    <string name="cancel_student_resume">Cancel student\'s resume?</string>
+    <string name="accept_students_resume">Accept student\'s resume.</string>
 
+    <resources>
+
+        <string-array name="Membership Type">
+            <item>Admin</item>
+            <item>Student</item>
+            <item>Company</item>
+        </string-array>
+
+    </resources>
 
 </resources>

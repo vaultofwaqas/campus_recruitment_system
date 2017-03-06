@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:id="@+id/company_detail_info_id"
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -55,32 +56,85 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_marginTop="36dp"
-        android:id="@+id/vacancy_available_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_height="36dp">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:textSize="18sp"
-            android:textColor="#7986CB"
-            android:gravity="right"
-            android:text="@string/vacancy_available"/>
+        <LinearLayout
+            android:id="@+id/vacancy_available_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:textSize="18sp"
-            android:textColor="#FF5722"
-            android:textStyle="bold"
-            android:paddingLeft="8dp"
-            android:gravity="left"
-            android:text="@string/apply"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:textColor="#7986CB"
+                android:gravity="right"
+                android:text="@string/vacancy_available"/>
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:textSize="16sp"
+                android:textColor="#FF5722"
+                android:paddingLeft="8dp"
+                android:gravity="left"
+                android:text="@string/apply"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/vacancy_available_cancellation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textSize="16sp"
+                android:textColor="#7986CB"
+                android:gravity="right"
+                android:text="@string/already_applied"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:textColor="#FF5722"
+                android:layout_marginLeft="6dp"
+                android:gravity="left"
+                android:text="@string/want_to_cancel"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/no_vacancy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:textColor="#FF5722"
+                android:gravity="center"
+                android:text="@string/no_vacancies"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
 </LinearLayout>

@@ -76,8 +76,35 @@ public class AccountListActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        if (membershipType.equals(getString(R.string.company_type))) {
+
+            MenuItem registerOne = menu.findItem(R.id.list_of_applied_students);
+            MenuItem registerTwo = menu.findItem(R.id.list_of_students);
+            registerOne.setVisible(true);
+            registerTwo.setVisible(true);
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
+
+            case R.id.list_of_students:
+
+                StudentListFragment.listOfStudents();
+
+                break;
+
+            case R.id.list_of_applied_students:
+
+                StudentListFragment.appliedStudentList();
+
+                break;
+
             case R.id.action_sign_out:
 
                 mAuth.signOut();

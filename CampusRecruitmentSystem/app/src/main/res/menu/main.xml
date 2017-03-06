@@ -5,6 +5,18 @@
     tools:context=".AccountListDetailActivity">
 
     <item
+        android:id="@+id/list_of_students"
+        android:title="@string/list_of_students"
+        app:showAsAction="never"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/list_of_applied_students"
+        android:title="@string/list_of_applied_students"
+        app:showAsAction="never"
+        android:visible="false" />
+
+    <item
         android:id="@+id/action_sign_out"
         android:title="@string/settings_menu_item"
         app:showAsAction="never"

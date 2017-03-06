@@ -73,7 +73,7 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
 
     public void attachingComponents(){
 
-        mProgressDialog.setMessage("Grid List Loading...");
+        mProgressDialog.setMessage("List of companies loading...");
         mProgressDialog.show();
 
         FirebaseDatabase.getInstance().getReference()
