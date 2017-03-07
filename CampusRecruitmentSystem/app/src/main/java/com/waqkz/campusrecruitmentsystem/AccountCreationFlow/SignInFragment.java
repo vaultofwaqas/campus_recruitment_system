@@ -10,8 +10,11 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,6 +37,7 @@ public class SignInFragment extends Fragment {
     private EditText emailSignIn;
     private EditText passwordSignIn;
     private Button userSignInButton;
+    private LinearLayout goToSignUpFragment;
 
     private String mEmailSignIn;
     private String mPasswordSignIn;
@@ -46,7 +50,7 @@ public class SignInFragment extends Fragment {
     private ProgressDialog mProgressDialog;
     private FirebaseAuth mAuth;
 
-    public static String membershipType;
+    private String membershipType;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -61,6 +65,7 @@ public class SignInFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mProgressDialog = new ProgressDialog(getActivity());
 
+
         attachingWidgets(rootView);
         attachingComponents();
 
@@ -72,9 +77,22 @@ public class SignInFragment extends Fragment {
         emailSignIn = (EditText) view.findViewById(R.id.user_email_sign_in);
         passwordSignIn = (EditText) view.findViewById(R.id.user_password_sign_in);
         userSignInButton = (Button) view.findViewById(R.id.user_sign_in);
+        goToSignUpFragment = (LinearLayout) view.findViewById(R.id.go_to_user_sign_up);
     }
 
     public void attachingComponents(){
+
+        goToSignUpFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new SignUpFragment())
+                        .addToBackStack("SignInFragment")
+                        .commit();
+            }
+        });
 
         userSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +116,14 @@ public class SignInFragment extends Fragment {
                     return;
                 }
 
+                if (mPasswordSignIn.length() < 6) {
+
+                    mProgressDialog.dismiss();
+                    passwordSignIn.setError(getString(R.string.password_error));
+
+                    return;
+                }
+
                 try {
 
                     mProgressDialog.setMessage("Signing in ...");
@@ -110,93 +136,87 @@ public class SignInFragment extends Fragment {
 
                                     if (!task.isSuccessful()) {
 
-                                        if (mPasswordSignIn.length() < 6) {
+                                        mProgressDialog.dismiss();
 
-                                            mProgressDialog.dismiss();
-                                            passwordSignIn.setError(getString(R.string.password_error));
-
-                                        } else {
-
-                                            mProgressDialog.dismiss();
-                                            Toast.makeText(getActivity(), getString(R.string.auth_failed),
-                                                    Toast.LENGTH_LONG).show();
-                                        }
+                                        Toast.makeText(getActivity(), getString(R.string.auth_failed),
+                                                Toast.LENGTH_LONG).show();Toast.makeText(getActivity(), getString(R.string.auth_failed),
+                                                Toast.LENGTH_LONG).show();
 
                                     } else {
 
-                                        if (membershipType.equals(getString(R.string.student_type))){
-
-                                            loginInfoType = getString(R.string.student_login_info);
-                                            infoType = getString(R.string.student_info);
-                                            accountInfo = getString(R.string.student_id);
-
-                                        } else if (membershipType.equals(getString(R.string.company_type))){
-
-                                            loginInfoType = getString(R.string.company_login_info);
-                                            infoType = getString(R.string.company_info);
-                                            accountInfo = getString(R.string.company_name);
-
-                                        } else if (membershipType.equals(getString(R.string.admin_type))){
-
-                                            loginInfoType = getString(R.string.admin_login_info);
-                                        }
-
                                         FirebaseDatabase.getInstance().getReference()
-                                                .child("Campus")
-                                                .child(membershipType)
-                                                .child(loginInfoType)
-                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                                .child("email").addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                .child(getString(R.string.campus))
+                                                .child(getString(R.string.user_node))
+                                                .child(mAuth.getCurrentUser().getUid())
+                                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                                if (dataSnapshot.exists()){
+                                                        if (dataSnapshot.exists()){
 
-                                                    if (membershipType.equals(getString(R.string.admin_type))){
+                                                            SignUp signUp = dataSnapshot.getValue(SignUp.class);
 
-                                                        openAccountListDetailActivity(v);
+                                                            membershipType = signUp.getMemberType();
 
-                                                    } else {
+                                                            if (signUp.getMemberType().equals(getString(R.string.student_type))){
 
-                                                        FirebaseDatabase.getInstance().getReference()
-                                                                .child("Campus")
-                                                                .child(membershipType)
-                                                                .child(infoType)
-                                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                                                .child(accountInfo).addListenerForSingleValueEvent(new ValueEventListener() {
-                                                            @Override
-                                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                infoType = getString(R.string.student_info);
+                                                                accountInfo = getString(R.string.student_id);
 
-                                                                if (dataSnapshot.exists()){
+                                                            } else if (signUp.getMemberType().equals(getString(R.string.company_type))){
 
-                                                                    openAccountListDetailActivity(v);
+                                                                infoType = getString(R.string.company_info);
+                                                                accountInfo = getString(R.string.company_name);
 
-                                                                } else {
+                                                            } else if (membershipType.equals(getString(R.string.admin_type))){
 
-                                                                    openAccountInfoActivity(v);
-                                                                }
+                                                                loginInfoType = getString(R.string.admin_login_info);
                                                             }
 
-                                                            @Override
-                                                            public void onCancelled(DatabaseError databaseError) {
+                                                            if (signUp.getMemberType().equals(getString(R.string.admin_type))){
 
+                                                                openAccountListDetailActivity(v);
+
+                                                            } else {
+
+                                                                FirebaseDatabase.getInstance().getReference()
+                                                                        .child(getString(R.string.campus))
+                                                                        .child(signUp.getMemberType())
+                                                                        .child(infoType)
+                                                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                                        .child(accountInfo).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                    @Override
+                                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                                        if (dataSnapshot.exists()){
+
+                                                                            openAccountListDetailActivity(v);
+
+                                                                        } else {
+
+                                                                            openAccountInfoActivity(v);
+                                                                        }
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                                    }
+                                                                });
                                                             }
-                                                        });
+                                                        } else {
+
+                                                            mProgressDialog.dismiss();
+                                                            mAuth.signOut();
+                                                            Snackbar.make(v, getString(R.string.user_not_found), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                                        }
                                                     }
 
-                                                } else {
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
 
-                                                    mProgressDialog.dismiss();
-                                                    mAuth.signOut();
-                                                    Snackbar.make(v, getString(R.string.user_not_found), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
-                                            }
-                                        });
+                                                    }
+                                                });
                                     }
                                 }
                             });

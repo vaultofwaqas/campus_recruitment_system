@@ -43,11 +43,6 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <Spinner
-                android:id="@+id/membershipType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
             <LinearLayout
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
@@ -62,6 +57,35 @@
                     android:background="#7986CB"
                     android:textColor="#FFFFFF"
                     android:text="@string/sign_in"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/go_to_user_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginTop="32dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:textSize="16sp"
+                    android:textColor="#FF5722"
+                    android:gravity="right"
+                    android:text="@string/not_sign_first"/>
+
+                <TextView
+                    android:layout_marginTop="32dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textSize="16sp"
+                    android:textColor="#7986CB"
+                    android:textStyle="bold"
+                    android:paddingLeft="8dp"
+                    android:gravity="left"
+                    android:text="@string/not_sign_second"/>
 
             </LinearLayout>
 

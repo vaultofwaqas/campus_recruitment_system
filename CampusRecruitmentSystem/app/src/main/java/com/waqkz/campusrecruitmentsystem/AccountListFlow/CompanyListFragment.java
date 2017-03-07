@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.SignUp;
 import com.waqkz.campusrecruitmentsystem.AccountDetailFlow.AccountDetailActivity;
 import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.CompanyInfo;
+import com.waqkz.campusrecruitmentsystem.NotificationService;
 import com.waqkz.campusrecruitmentsystem.R;
 
 import java.util.ArrayList;

@@ -73,15 +73,19 @@
     <string name="resume_cancelled_successfully">Resume Cancelled Successfully.</string>
     <string name="cancel_student_resume">Cancel student\'s resume?</string>
     <string name="accept_students_resume">Accept student\'s resume.</string>
+    <string name="not_sign_first">Don\'t have an account?</string>
+    <string name="not_sign_second">Sign up now.</string>
+    <string name="member_type_not_selected">Member Type Not Selected</string>
+    <string name="user_node">user</string>
+    <string name="notification">notification</string>
+    <string name="application_rejected">Application Rejected</string>
+    <string name="application_accepted_succesfully">Application Accepted Successfully.</string>
+    <string name="accepted_student_application">accepted_student_applications</string>
+    <string name="student_application_accepted">Accepted Student\'s Application.</string>
+    <string name="resume_accepted">Your resume was accepted.</string>
 
-    <resources>
-
-        <string-array name="Membership Type">
-            <item>Admin</item>
-            <item>Student</item>
-            <item>Company</item>
-        </string-array>
-
-    </resources>
-
+    <string-array name="member_type">
+        <item>Student</item>
+        <item>Company</item>
+    </string-array>
 </resources>

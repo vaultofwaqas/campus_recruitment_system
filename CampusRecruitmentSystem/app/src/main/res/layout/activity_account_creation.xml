@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.waqkz.campusrecruitmentsystem.AccountCreationFlow.AccountCreationActivity">
 
-    <include
-        layout="@layout/tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
-
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

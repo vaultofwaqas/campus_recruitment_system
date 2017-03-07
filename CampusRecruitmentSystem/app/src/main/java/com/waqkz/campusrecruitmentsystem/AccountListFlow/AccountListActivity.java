@@ -8,15 +8,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.AccountCreationActivity;
+import com.waqkz.campusrecruitmentsystem.AccountDetailFlow.AccountDetailActivity;
+import com.waqkz.campusrecruitmentsystem.NotificationService;
 import com.waqkz.campusrecruitmentsystem.R;
 
 public class AccountListActivity extends AppCompatActivity {
 
     public static String membershipType;
+    public static int menuItemView;
+
     private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
 
@@ -27,14 +32,17 @@ public class AccountListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_list_detail);
 
+        Intent intent = new Intent(this, NotificationService.class);
+        this.startService(intent);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.showOverflowMenu();
         setSupportActionBar(toolbar);
 
         attachingWidgets();
 
-        Intent intent = getIntent();
-        membershipType = intent.getExtras().getString("memberType");
+        Intent intents = getIntent();
+        membershipType = intents.getExtras().getString("memberType");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -91,6 +99,8 @@ public class AccountListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        menuItemView = item.getItemId();
+
         switch (item.getItemId()) {
 
             case R.id.list_of_students:
@@ -123,5 +133,21 @@ public class AccountListActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Intent intent = new Intent(this, NotificationService.class);
+        startService(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Intent intent = new Intent(this, NotificationService.class);
+        startService(intent);
     }
 }

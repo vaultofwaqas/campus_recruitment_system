@@ -9,14 +9,16 @@ public class SignUp {
     private String UUID;
     private String email;
     private String password;
+    private String memberType;
 
     public SignUp() {
     }
 
-    public SignUp(String UUID, String email, String password) {
+    public SignUp(String UUID, String email, String password, String memberType) {
         this.UUID = UUID;
         this.email = email;
         this.password = password;
+        this.memberType = memberType;
     }
 
     public String getUUID() {
@@ -41,5 +43,13 @@ public class SignUp {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getMemberType() {
+        return memberType;
+    }
+
+    public void setMemberType(String memberType) {
+        this.memberType = memberType;
     }
 }

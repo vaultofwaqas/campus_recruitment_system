@@ -1,6 +1,7 @@
 package com.waqkz.campusrecruitmentsystem.AccountCreationFlow;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -9,8 +10,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,12 +41,13 @@ public class SignUpFragment extends Fragment {
 
     private String mSignUpEmail;
     private String mSignUpPassword;
+    private TextView textError;
     private String mSignUpConfirmPassword;
+
+    private Spinner spinner;
 
     private DatabaseReference mDatabase;
     private ProgressDialog mProgressDialog;
-
-    private AccountCreationPagerAdapter viewpager;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -67,9 +74,21 @@ public class SignUpFragment extends Fragment {
         signUpPassword = (EditText) view.findViewById(R.id.user_password_sign_up);
         signUpConfirmPassword = (EditText) view.findViewById(R.id.user_password_confirm_sign_up);
         signUpButton = (Button) view.findViewById(R.id.user_signup);
+        textError = (TextView) view.findViewById(R.id.spinner_error);
+        spinner = (Spinner) view.findViewById(R.id.membershipType);
     }
 
     public void attachingComponents(){
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.member_type, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setPrompt("Select Membership Type");
+        spinner.setAdapter(new NothingSelectedSpinnerAdapter(adapter,
+                R.layout.contact_spinner_row_nothing_selected,
+                // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                getActivity()));
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +133,14 @@ public class SignUpFragment extends Fragment {
                     check = true;
                 }
 
+                if (spinner.getSelectedItem() == null){
+
+                    textError.setError(getString(R.string.member_type_not_selected));
+                    textError.requestFocus();
+
+                    check = true;
+                }
+
                 if (check){
 
                     return;
@@ -131,7 +158,8 @@ public class SignUpFragment extends Fragment {
 
                         SignUp signUp = new SignUp(UUID,
                                 mSignUpEmail,
-                                mSignUpPassword);
+                                mSignUpPassword,
+                                spinner.getSelectedItem().toString());
 
                         if (!task.isSuccessful()) {
 
@@ -142,30 +170,21 @@ public class SignUpFragment extends Fragment {
 
                         } else {
 
-                            if (membershipType.equals(getString(R.string.student_type))){
-
-                                mDatabase.child(getString(R.string.campus))
-                                        .child(membershipType)
-                                        .child(getString(R.string.student_login_info))
-                                        .child(UUID)
-                                        .setValue(signUp);
-
-                            } else if (membershipType.equals(getString(R.string.company_type))){
-
-                                mDatabase.child(getString(R.string.campus))
-                                        .child(membershipType)
-                                        .child(getString(R.string.company_login_info))
-                                        .child(UUID)
-                                        .setValue(signUp);
-                            }
+                            mDatabase.child(getString(R.string.campus))
+                                    .child(getString(R.string.user_node))
+                                    .child(UUID)
+                                    .setValue(signUp);
 
                             signUpEmail.setText("");
                             signUpPassword.setText("");
                             signUpConfirmPassword.setText("");
 
-                            AccountCreationViewPagerFragment.accountCreationViewPager.setCurrentItem(0);
-
                             mProgressDialog.dismiss();
+
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_container, new SignInFragment())
+                                    .commit();
 
                             Snackbar.make(v, R.string.account_creation_succesful, Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();

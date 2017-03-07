@@ -54,6 +54,26 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <RelativeLayout
+                android:layout_marginTop="16dp"
+                android:layout_width="240dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/membershipType"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/spinner_error"
+                    android:layout_width="170dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
             <Button
                 android:id="@+id/user_signup"
                 android:text="@string/sign_up"

@@ -89,20 +89,15 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/resume_sent_ui"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/student_resume_accept"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:id="@+id/resume_accepted_ui"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="36dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -110,34 +105,62 @@
                 android:textSize="14sp"
                 android:textColor="#7986CB"
                 android:gravity="center"
-                android:text="@string/accept_students_resume"/>
+                android:text="@string/student_application_accepted"/>
 
         </LinearLayout>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#77cccccc"
-            android:focusable="false"/>
 
         <LinearLayout
-            android:id="@+id/student_resume_cancellation"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:id="@+id/resume_sent_ui"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="64dp"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/student_resume_accept"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="#FF5722"
-                android:gravity="center"
-                android:text="@string/cancel_student_resume"/>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="14sp"
+                    android:textColor="#7986CB"
+                    android:gravity="center"
+                    android:text="@string/accept_students_resume"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#77cccccc"
+                android:focusable="false"/>
+
+            <LinearLayout
+                android:id="@+id/student_resume_cancellation"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#FF5722"
+                    android:gravity="center"
+                    android:text="@string/cancel_student_resume"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

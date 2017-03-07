@@ -135,6 +135,24 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/resume_accepted"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:textColor="#7986CB"
+                android:gravity="center"
+                android:text="@string/resume_accepted"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

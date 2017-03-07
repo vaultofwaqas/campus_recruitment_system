@@ -14,10 +14,12 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import com.waqkz.campusrecruitmentsystem.AccountDetailFlow.AccountDetailActivity;
 import com.waqkz.campusrecruitmentsystem.AccountListFlow.AccountListActivity;
+import com.waqkz.campusrecruitmentsystem.NotificationService;
 import com.waqkz.campusrecruitmentsystem.R;
 
-public class AccountCreationActivity extends AppCompatActivity implements TitleFragment.SendMembershipTypeListener {
+public class AccountCreationActivity extends AppCompatActivity {
 
     public static boolean checkConnectivity(Context context) {
 
@@ -26,8 +28,6 @@ public class AccountCreationActivity extends AppCompatActivity implements TitleF
     }
 
     private static Context context;
-    public static Toolbar toolbar;
-    public static TextView toolBarText;
 
     private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
@@ -38,23 +38,6 @@ public class AccountCreationActivity extends AppCompatActivity implements TitleF
         setContentView(R.layout.activity_account_creation);
 
         context = this.getApplicationContext();
-
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
-
-        attachingWidgets();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintColor(getResources().getColor(R.color.colorPrimaryDark));
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        }
 
         sharedPreferences = this.getSharedPreferences(getResources().getString(R.string.prefKey),0);
 
@@ -72,20 +55,8 @@ public class AccountCreationActivity extends AppCompatActivity implements TitleF
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragment_container, new TitleFragment())
+                .add(R.id.fragment_container, new SignInFragment())
                 .commit();
-    }
-
-    @Override
-    public void sendMembershipType(String sendMemberType) {
-
-        SignInFragment.membershipType = sendMemberType;
-        SignUpFragment.membershipType = sendMemberType;
-    }
-
-    public void attachingWidgets(){
-
-        toolBarText = (TextView) findViewById(R.id.title_page);
     }
 
     public static Context getContext() {
