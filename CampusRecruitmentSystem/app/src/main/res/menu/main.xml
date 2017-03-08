@@ -5,6 +5,18 @@
     tools:context=".AccountListDetailActivity">
 
     <item
+        android:id="@+id/list_of_companies"
+        android:title="@string/list_of_companies"
+        app:showAsAction="never"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/list_of_companies_with_vacancies_available"
+        android:title="@string/list_of_companies_with_vacancies"
+        app:showAsAction="never"
+        android:visible="false" />
+
+    <item
         android:id="@+id/list_of_students"
         android:title="@string/list_of_students"
         app:showAsAction="never"

@@ -65,7 +65,6 @@ public class SignInFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mProgressDialog = new ProgressDialog(getActivity());
 
-
         attachingWidgets(rootView);
         attachingComponents();
 

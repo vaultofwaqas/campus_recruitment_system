@@ -31,10 +31,10 @@ import java.util.ArrayList;
 public class CompanyListFragment extends Fragment implements CompanyListRecyclerAdapter.itemClickCallback{
 
     private RecyclerView companyRecyclerView;
-    private CompanyListRecyclerAdapter companyListRecyclerAdapter;
-    private ArrayList<CompanyInfo> companyArrayList;
+    public static CompanyListRecyclerAdapter companyListRecyclerAdapter;
+    public static ArrayList<CompanyInfo> companyArrayList;
 
-    private ProgressDialog mProgressDialog;
+    public static ProgressDialog mProgressDialog;
 
     public CompanyListFragment() {
         // Required empty public constructor
@@ -58,7 +58,7 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
 
         companyArrayList = new ArrayList<CompanyInfo>();
 
-        attachingComponents();
+        listOfCompanies();
 
         companyListRecyclerAdapter = new CompanyListRecyclerAdapter(companyArrayList, getActivity());
         companyRecyclerView.setAdapter(companyListRecyclerAdapter);
@@ -72,15 +72,29 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
         companyRecyclerView = (RecyclerView) view.findViewById(R.id.company_card_list);
     }
 
-    public void attachingComponents(){
+    @Override
+    public void onItemClick(int position) {
+
+        Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
+        intent.putExtra("memberType", AccountListActivity.membershipType);
+        intent.putExtra("company_info", companyArrayList.get(position));
+        startActivity(intent);
+    }
+
+    public static void listOfCompanies(){
+
+        if (companyArrayList != null){
+
+            companyArrayList.clear();
+        }
 
         mProgressDialog.setMessage("List of companies loading...");
         mProgressDialog.show();
 
         FirebaseDatabase.getInstance().getReference()
-                .child(getString(R.string.campus))
-                .child(getString(R.string.company_type))
-                .child(getString(R.string.company_info))
+                .child("Campus")
+                .child("Company")
+                .child("company_user_detail_info")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -110,12 +124,47 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
         mProgressDialog.dismiss();
     }
 
-    @Override
-    public void onItemClick(int position) {
+    public static void companiesWithVacancies(){
 
-        Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
-        intent.putExtra("memberType", AccountListActivity.membershipType);
-        intent.putExtra("company_info", companyArrayList.get(position));
-        startActivity(intent);
+        if (companyArrayList != null){
+
+            companyArrayList.clear();
+        }
+
+        mProgressDialog.setMessage("Companies loading with vacancies available ...");
+        mProgressDialog.show();
+
+        FirebaseDatabase.getInstance().getReference()
+                .child("Campus")
+                .child("Company")
+                .child("company_user_detail_info")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        if (dataSnapshot.exists()){
+
+                            for (DataSnapshot data:
+                                    dataSnapshot.getChildren()){
+
+                                CompanyInfo companyInfo = data.getValue(CompanyInfo.class);
+
+                                if (companyInfo.getCompanyVacancyAvailableCheck() == true){
+
+                                    companyArrayList.add(companyInfo);
+                                }
+                            }
+                        }
+
+                        companyListRecyclerAdapter.notifyDataSetChanged();
+                        mProgressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                        mProgressDialog.dismiss();
+                    }
+                });
     }
 }

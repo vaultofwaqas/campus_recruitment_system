@@ -16,6 +16,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.AccountCreationActivity;
 import com.waqkz.campusrecruitmentsystem.AccountDetailFlow.AccountDetailActivity;
 import com.waqkz.campusrecruitmentsystem.AccountDetailFlow.NotificationMessage;
 import com.waqkz.campusrecruitmentsystem.AccountListFlow.AccountListActivity;
@@ -94,8 +95,7 @@ public class NotificationService extends Service {
 
     public void notif(String message) {
 
-
-        Intent intent = new Intent(this, AccountListActivity.class);
+        Intent intent = new Intent(this, AccountCreationActivity.class);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification.Builder notification = new Notification.Builder(this)

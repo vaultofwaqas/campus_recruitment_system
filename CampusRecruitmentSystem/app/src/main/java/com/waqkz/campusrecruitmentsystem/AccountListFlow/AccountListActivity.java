@@ -12,12 +12,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.AccountCreationActivity;
+import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.SignUp;
 import com.waqkz.campusrecruitmentsystem.AccountDetailFlow.AccountDetailActivity;
 import com.waqkz.campusrecruitmentsystem.NotificationService;
 import com.waqkz.campusrecruitmentsystem.R;
 
-public class AccountListActivity extends AppCompatActivity {
+public class  AccountListActivity extends AppCompatActivity {
 
     public static String membershipType;
     public static int menuItemView;
@@ -48,7 +53,15 @@ public class AccountListActivity extends AppCompatActivity {
 
         saveUserPref();
 
-        if (membershipType.equals(getString(R.string.student_type))){
+        if (membershipType.equals(getString(R.string.admin_type))){
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragment_list_detail_container, new StudentCompanyPagerFragment())
+                    .commit();
+
+
+        } else if (membershipType.equals(getString(R.string.student_type))){
 
             getSupportFragmentManager()
                     .beginTransaction()
@@ -86,6 +99,14 @@ public class AccountListActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
+        if (membershipType.equals(getString(R.string.student_type))){
+
+            MenuItem registerOne = menu.findItem(R.id.list_of_companies_with_vacancies_available);
+            MenuItem registerTwo = menu.findItem(R.id.list_of_companies);
+            registerOne.setVisible(true);
+            registerTwo.setVisible(true);
+        }
+
         if (membershipType.equals(getString(R.string.company_type))) {
 
             MenuItem registerOne = menu.findItem(R.id.list_of_applied_students);
@@ -103,16 +124,24 @@ public class AccountListActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
 
+            case R.id.list_of_companies:
+
+                CompanyListFragment.listOfCompanies();
+                break;
+
+            case R.id.list_of_companies_with_vacancies_available:
+
+                CompanyListFragment.companiesWithVacancies();
+                break;
+
             case R.id.list_of_students:
 
                 StudentListFragment.listOfStudents();
-
                 break;
 
             case R.id.list_of_applied_students:
 
                 StudentListFragment.appliedStudentList();
-
                 break;
 
             case R.id.action_sign_out:

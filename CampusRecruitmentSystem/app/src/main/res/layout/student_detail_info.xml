@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:id="@+id/student_detail_info_id"
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -94,9 +95,62 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/admin_student_record_ui"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="16dp"
+
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/edit_student_record"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:textColor="#7986CB"
+                    android:gravity="center"
+                    android:text="@string/edit_student_record"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#77cccccc"
+                android:focusable="false"/>
+
+            <LinearLayout
+                android:id="@+id/delete_student_record"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:textColor="#FF5722"
+                    android:gravity="center"
+                    android:text="@string/delete_student_record"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/resume_accepted_ui"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="36dp">
 
             <TextView

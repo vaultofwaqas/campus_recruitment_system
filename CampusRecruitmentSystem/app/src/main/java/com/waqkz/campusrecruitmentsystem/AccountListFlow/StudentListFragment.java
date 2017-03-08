@@ -127,12 +127,15 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        for (DataSnapshot data:
-                                dataSnapshot.getChildren()) {
+                        if (dataSnapshot.exists()){
 
-                            StudentInfo studentInfo = data.getValue(StudentInfo.class);
+                            for (DataSnapshot data:
+                                    dataSnapshot.getChildren()) {
 
-                            studentArrayList.add(studentInfo);
+                                StudentInfo studentInfo = data.getValue(StudentInfo.class);
+
+                                studentArrayList.add(studentInfo);
+                            }
                         }
 
                         studentListRecyclerAdapter.notifyDataSetChanged();

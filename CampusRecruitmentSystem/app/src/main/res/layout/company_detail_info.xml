@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="16dp"
-    android:id="@+id/company_detail_info_id"
     android:visibility="gone"
+    android:id="@+id/company_detail_info_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -59,7 +59,61 @@
     <RelativeLayout
         android:layout_marginTop="36dp"
         android:layout_width="match_parent"
-        android:layout_height="36dp">
+        android:layout_height="64dp">
+
+        <LinearLayout
+            android:id="@+id/admin_company_record_ui"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/edit_company_record"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:textColor="#7986CB"
+                    android:gravity="center"
+                    android:text="@string/edit_company_record"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#77cccccc"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:focusable="false"/>
+
+            <LinearLayout
+                android:id="@+id/delete_company_record"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="4dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:textColor="#FF5722"
+                    android:gravity="center"
+                    android:text="@string/delete_company_record"
+                    android:id="@+id/textView" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/vacancy_available_id"

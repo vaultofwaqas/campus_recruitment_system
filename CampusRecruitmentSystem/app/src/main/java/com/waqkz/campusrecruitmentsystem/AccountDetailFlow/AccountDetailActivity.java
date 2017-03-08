@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -70,6 +71,14 @@ public class AccountDetailActivity extends AppCompatActivity{
     private LinearLayout cancelStudentResume;
     private LinearLayout resumeAcceptedUI;
 
+    private LinearLayout adminStudentRecordUI;
+    private LinearLayout editStudentRecord;
+    private LinearLayout deleteStudentRecord;
+
+    private LinearLayout adminCompanyRecordUI;
+    private LinearLayout editCompanyRecord;
+    private LinearLayout deleteCompanyRecord;
+
     private ProgressDialog mProgressDialog;
 
     private String membershipType;
@@ -101,7 +110,9 @@ public class AccountDetailActivity extends AppCompatActivity{
 
         attachingWidgets();
 
-        if (membershipType.equals(getString(R.string.student_type))){
+
+
+        if (companyInfo != null){
 
             collapsingToolbar.setTitle(getString(R.string.company_detail_info));
 
@@ -116,6 +127,24 @@ public class AccountDetailActivity extends AppCompatActivity{
             companyDetailPhoneNumber.setText(companyInfo.getCompanyPhoneNumber());
             companyDetailAddress.setText(companyInfo.getCompanyAddress());
             companyDetailWebPage.setText(companyInfo.getCompanyWebPage());
+
+            if (membershipType.equals(getString(R.string.admin_type))){
+
+                noCompanyVacancy.setVisibility(View.GONE);
+                companyVacancyAvailableCheck.setVisibility(View.GONE);
+                companyVacancyCancellationCheck.setVisibility(View.GONE);
+                resumeAccepted.setVisibility(View.GONE);
+
+                return;
+            }
+
+            if (membershipType.equals(getString(R.string.admin_type))) {
+
+                adminCompanyRecordUI.setVisibility(View.VISIBLE);
+            } else {
+
+                adminCompanyRecordUI.setVisibility(View.GONE);
+            }
 
             if (companyInfo.getCompanyVacancyAvailableCheck() == false){
 
@@ -254,7 +283,7 @@ public class AccountDetailActivity extends AppCompatActivity{
                 }
             });
 
-        } else if (membershipType.equals(getString(R.string.company_type))){
+        } else if (studentInfo != null){
 
             collapsingToolbar.setTitle(getString(R.string.student_detail_info));
 
@@ -270,6 +299,14 @@ public class AccountDetailActivity extends AppCompatActivity{
             studentDetailDateOfBirth.setText(studentInfo.getStudentDateOfBirth());
             studentDetailPhoneNumber.setText(studentInfo.getStudentPhoneNumber());
             studentDetailMarks.setText(studentInfo.getStudentMarks());
+
+            if (membershipType.equals(getString(R.string.admin_type))) {
+
+                adminStudentRecordUI.setVisibility(View.VISIBLE);
+            } else {
+
+                adminStudentRecordUI.setVisibility(View.GONE);
+            }
 
             if (studentInfo.getStudentGender().equals(getString(R.string.student_male))){
 
@@ -451,6 +488,14 @@ public class AccountDetailActivity extends AppCompatActivity{
         companyVacancyCancellationCheck = (LinearLayout) findViewById(R.id.vacancy_available_cancellation);
         noCompanyVacancy = (LinearLayout) findViewById(R.id.no_vacancy);
         resumeAcceptedUI = (LinearLayout) findViewById(R.id.resume_accepted_ui);
+
+        editStudentRecord = (LinearLayout) findViewById(R.id.edit_student_record);
+        deleteStudentRecord = (LinearLayout) findViewById(R.id.delete_student_record);
+        adminStudentRecordUI = (LinearLayout) findViewById(R.id.admin_student_record_ui);
+
+        editCompanyRecord = (LinearLayout) findViewById(R.id.edit_company_record);
+        deleteCompanyRecord = (LinearLayout) findViewById(R.id.delete_company_record);
+        adminCompanyRecordUI = (LinearLayout) findViewById(R.id.admin_company_record_ui);
     }
 
     public void initializingWidgets(){
