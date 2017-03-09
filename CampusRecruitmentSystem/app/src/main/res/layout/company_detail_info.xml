@@ -2,114 +2,195 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="16dp"
-    android:visibility="gone"
     android:id="@+id/company_detail_info_id"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="false">
 
-    <TextView
-        android:id="@+id/company_detail_name"
-        android:inputType="text"
-        android:paddingLeft="2dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/company_detail_email"
-        android:inputType="text"
-        android:paddingLeft="2dp"
+        <TextView
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:textColor="#BDBDBD"
+            android:text="@string/company_names"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/company_detail_name"
+            android:typeface="serif"
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/company_detail_address"
-        android:inputType="text"
-        android:paddingLeft="2dp"
+        <TextView
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:textColor="#BDBDBD"
+            android:text="@string/company_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/company_detail_email"
+            android:typeface="serif"
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/company_detail_phone_number"
-        android:inputType="phone"
-        android:paddingLeft="2dp"
+        <TextView
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:textColor="#BDBDBD"
+            android:text="@string/company_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/company_detail_address"
+            android:typeface="serif"
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/company_detail_web_page"
-        android:inputType="phone"
-        android:paddingLeft="2dp"
+        <TextView
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:textColor="#BDBDBD"
+            android:text="@string/company_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/company_detail_phone_number"
+            android:typeface="serif"
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:textColor="#BDBDBD"
+            android:text="@string/company_web_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/company_detail_web_page"
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:layout_marginLeft="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <RelativeLayout
-        android:layout_marginTop="36dp"
         android:layout_width="match_parent"
-        android:layout_height="64dp">
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:focusable="false">
 
         <LinearLayout
             android:id="@+id/admin_company_record_ui"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusable="false">
 
             <LinearLayout
-                android:id="@+id/edit_company_record"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/edit_company_record"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
-                    android:textColor="#7986CB"
                     android:gravity="center"
-                    android:text="@string/edit_company_record"/>
+                    android:text="@string/edit_company_record"
+                    android:textColor="#7986CB"
+                    android:textSize="18sp"
+                    android:typeface="serif" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#77cccccc"
-                android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:background="#77cccccc"
                 android:focusable="false"/>
 
             <LinearLayout
-                android:id="@+id/delete_company_record"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_marginLeft="4dp"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:layout_weight="1"
+                android:gravity="center"
+                android:focusable="false"
+                android:clickable="false"
+                android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/delete_company_record"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
-                    android:textColor="#FF5722"
                     android:gravity="center"
                     android:text="@string/delete_company_record"
-                    android:id="@+id/textView" />
+                    android:clickable="true"
+                    android:textColor="#FF5722"
+                    android:textSize="18sp"
+                    android:typeface="serif" />
 
             </LinearLayout>
 
@@ -125,20 +206,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textSize="16sp"
-                android:textColor="#7986CB"
                 android:gravity="right"
-                android:text="@string/vacancy_available"/>
+                android:text="@string/vacancy_available"
+                android:textColor="#7986CB"
+                android:textSize="16sp"
+                android:typeface="serif" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:textSize="16sp"
-                android:textColor="#FF5722"
-                android:paddingLeft="8dp"
                 android:gravity="left"
-                android:text="@string/apply"/>
+                android:paddingLeft="8dp"
+                android:text="@string/apply"
+                android:textColor="#FF5722"
+                android:textSize="16sp"
+                android:typeface="serif" />
 
         </LinearLayout>
 
@@ -146,27 +229,29 @@
             android:id="@+id/vacancy_available_cancellation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:textSize="16sp"
-                android:textColor="#7986CB"
                 android:gravity="right"
-                android:text="@string/already_applied"/>
+                android:text="@string/already_applied"
+                android:textColor="#7986CB"
+                android:textSize="16sp"
+                android:typeface="serif" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="16sp"
-                android:textColor="#FF5722"
                 android:layout_marginLeft="6dp"
+                android:layout_weight="1"
                 android:gravity="left"
-                android:text="@string/want_to_cancel"/>
+                android:text="@string/want_to_cancel"
+                android:textColor="#FF5722"
+                android:textSize="16sp"
+                android:typeface="serif" />
 
         </LinearLayout>
 
@@ -175,17 +260,18 @@
             android:id="@+id/no_vacancy"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textSize="16sp"
-                android:textColor="#FF5722"
                 android:gravity="center"
-                android:text="@string/no_vacancies"/>
+                android:text="@string/no_vacancies"
+                android:textColor="#FF5722"
+                android:textSize="16sp"
+                android:typeface="serif" />
 
         </LinearLayout>
 
@@ -193,17 +279,18 @@
             android:id="@+id/resume_accepted"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textSize="16sp"
-                android:textColor="#7986CB"
                 android:gravity="center"
-                android:text="@string/resume_accepted"/>
+                android:text="@string/resume_accepted"
+                android:textColor="#7986CB"
+                android:textSize="16sp"
+                android:typeface="serif" />
 
         </LinearLayout>
 

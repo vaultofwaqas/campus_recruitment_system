@@ -42,7 +42,7 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_student_list, container, false);
 
-        AccountListActivity.toolBarText.setText(getString(R.string.student_list_info));
+        AccountListActivity.toolBarText.setText(getString(R.string.student_dashboard));
 
         attachingWidgets(rootView);
 

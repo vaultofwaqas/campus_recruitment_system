@@ -29,11 +29,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.waqkz.campusrecruitmentsystem.AccountCreationFlow.AccountCreationActivity;
+import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.AccountInfoActivity;
 import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.CompanyInfo;
 import com.waqkz.campusrecruitmentsystem.AccountInfoFlow.StudentInfo;
 import com.waqkz.campusrecruitmentsystem.AccountListFlow.AccountListActivity;
+import com.waqkz.campusrecruitmentsystem.AccountListFlow.CompanyListFragment;
 import com.waqkz.campusrecruitmentsystem.AccountListFlow.StudentListFragment;
-import com.waqkz.campusrecruitmentsystem.NotificationService;
 import com.waqkz.campusrecruitmentsystem.R;
 
 import java.util.HashMap;
@@ -72,12 +73,12 @@ public class AccountDetailActivity extends AppCompatActivity{
     private LinearLayout resumeAcceptedUI;
 
     private LinearLayout adminStudentRecordUI;
-    private LinearLayout editStudentRecord;
-    private LinearLayout deleteStudentRecord;
+    private TextView editStudentRecord;
+    private TextView deleteStudentRecord;
 
     private LinearLayout adminCompanyRecordUI;
-    private LinearLayout editCompanyRecord;
-    private LinearLayout deleteCompanyRecord;
+    private TextView editCompanyRecord;
+    private TextView deleteCompanyRecord;
 
     private ProgressDialog mProgressDialog;
 
@@ -110,8 +111,6 @@ public class AccountDetailActivity extends AppCompatActivity{
 
         attachingWidgets();
 
-
-
         if (companyInfo != null){
 
             collapsingToolbar.setTitle(getString(R.string.company_detail_info));
@@ -134,6 +133,40 @@ public class AccountDetailActivity extends AppCompatActivity{
                 companyVacancyAvailableCheck.setVisibility(View.GONE);
                 companyVacancyCancellationCheck.setVisibility(View.GONE);
                 resumeAccepted.setVisibility(View.GONE);
+
+                editCompanyRecord.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(AccountDetailActivity.this, AccountInfoActivity.class);
+                        intent.putExtra("companysInfo", companyInfo);
+                        startActivity(intent);
+                    }
+                });
+
+                deleteCompanyRecord.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        mProgressDialog.setMessage("Deleting Company Record . . .");
+                        mProgressDialog.show();
+
+                        FirebaseDatabase.getInstance().getReference()
+                                .child(getString(R.string.campus))
+                                .child(getString(R.string.company_type))
+                                .child(getString(R.string.company_info))
+                                .child(companyInfo.getCompanyUUID()).removeValue();
+
+                        mProgressDialog.dismiss();
+
+                        Snackbar.make(v, getString(R.string.company_record_deletion_succesfull), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+
+                        CompanyListFragment.listOfCompanies();
+
+                        finish();
+                    }
+                });
 
                 return;
             }
@@ -303,6 +336,41 @@ public class AccountDetailActivity extends AppCompatActivity{
             if (membershipType.equals(getString(R.string.admin_type))) {
 
                 adminStudentRecordUI.setVisibility(View.VISIBLE);
+
+                editStudentRecord.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(AccountDetailActivity.this, AccountInfoActivity.class);
+                        intent.putExtra("studentsInfo", studentInfo);
+                        startActivity(intent);
+                    }
+                });
+
+                deleteStudentRecord.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        mProgressDialog.setMessage("Deleting Student Record . . .");
+                        mProgressDialog.show();
+
+                        FirebaseDatabase.getInstance().getReference()
+                                .child(getString(R.string.campus))
+                                .child(getString(R.string.student_type))
+                                .child(getString(R.string.student_info))
+                                .child(studentInfo.getStudentUUID()).removeValue();
+
+                        mProgressDialog.dismiss();
+
+                        Snackbar.make(v, getString(R.string.company_record_deletion_succesfull), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+
+                        StudentListFragment.listOfStudents();
+
+                        finish();
+                    }
+                });
+
             } else {
 
                 adminStudentRecordUI.setVisibility(View.GONE);
@@ -323,6 +391,11 @@ public class AccountDetailActivity extends AppCompatActivity{
 
                 femaleRadioButton.setChecked(true);
                 femaleRadioButton.setEnabled(true);
+            }
+
+            if (membershipType.equals(getString(R.string.admin_type))) {
+
+                return;
             }
 
             FirebaseDatabase.getInstance().getReference()
@@ -489,12 +562,12 @@ public class AccountDetailActivity extends AppCompatActivity{
         noCompanyVacancy = (LinearLayout) findViewById(R.id.no_vacancy);
         resumeAcceptedUI = (LinearLayout) findViewById(R.id.resume_accepted_ui);
 
-        editStudentRecord = (LinearLayout) findViewById(R.id.edit_student_record);
-        deleteStudentRecord = (LinearLayout) findViewById(R.id.delete_student_record);
+        editStudentRecord = (TextView) findViewById(R.id.edit_student_record);
+        deleteStudentRecord = (TextView) findViewById(R.id.delete_student_record);
         adminStudentRecordUI = (LinearLayout) findViewById(R.id.admin_student_record_ui);
 
-        editCompanyRecord = (LinearLayout) findViewById(R.id.edit_company_record);
-        deleteCompanyRecord = (LinearLayout) findViewById(R.id.delete_company_record);
+        editCompanyRecord = (TextView) findViewById(R.id.edit_company_record);
+        deleteCompanyRecord = (TextView) findViewById(R.id.delete_company_record);
         adminCompanyRecordUI = (LinearLayout) findViewById(R.id.admin_company_record_ui);
     }
 
@@ -520,5 +593,12 @@ public class AccountDetailActivity extends AppCompatActivity{
 
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.prefKey),0);
         sharedPreferences.edit().putString(getResources().getString(R.string.prefType),membershipType).apply();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        finish();
     }
 }

@@ -3,70 +3,159 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:id="@+id/student_detail_info_id"
-    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/student_detail_name"
-        android:inputType="text"
-        android:paddingLeft="2dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/student_detail_email"
-        android:inputType="text"
-        android:paddingLeft="2dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:textColor="#BDBDBD"
+            android:text="@string/student_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/student_detail_id"
-        android:inputType="number"
-        android:paddingLeft="2dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/student_detail_name"
+            android:typeface="serif"
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/student_detail_date_of_birth"
-        android:paddingLeft="2dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp"
-        android:textSize="18sp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/student_detail_phone_number"
-        android:inputType="phone"
-        android:paddingLeft="2dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/student_detail_marks"
-        android:inputType="numberDecimal"
-        android:paddingLeft="2dp"
+        <TextView
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:textColor="#BDBDBD"
+            android:text="@string/student_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/student_detail_email"
+            android:textSize="16sp"
+            android:layout_marginLeft="8dp"
+            android:typeface="serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:textColor="#BDBDBD"
+            android:text="@string/student_ids"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/student_detail_id"
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            android:typeface="serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:textColor="#BDBDBD"
+            android:text="@string/student_date_of_birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/student_detail_date_of_birth"
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            android:typeface="serif"
+            android:focusableInTouchMode="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:textColor="#BDBDBD"
+            android:text="@string/student_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/student_detail_phone_number"
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            android:typeface="serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:typeface="serif"
+            android:textSize="16sp"
+            android:textColor="#BDBDBD"
+            android:text="@string/student_cgpa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/student_detail_marks"
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            android:typeface="serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,6 +168,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:typeface="serif"
+            android:textSize="16sp"
             android:text="@string/student_male" />
 
         <RadioButton
@@ -86,6 +177,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:typeface="serif"
+            android:textSize="16sp"
             android:text="@string/student_female" />
 
     </LinearLayout>
@@ -97,13 +190,11 @@
         <LinearLayout
             android:id="@+id/admin_student_record_ui"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="120dp"
             android:layout_marginTop="16dp"
-
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/edit_student_record"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -111,10 +202,12 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/edit_student_record"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textColor="#7986CB"
+                    android:typeface="serif"
                     android:gravity="center"
                     android:text="@string/edit_student_record"/>
 
@@ -127,7 +220,6 @@
                 android:focusable="false"/>
 
             <LinearLayout
-                android:id="@+id/delete_student_record"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -135,9 +227,11 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/delete_student_record"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
+                    android:typeface="serif"
                     android:textColor="#FF5722"
                     android:gravity="center"
                     android:text="@string/delete_student_record"/>
@@ -156,7 +250,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="14sp"
+                android:textSize="16sp"
+                android:typeface="serif"
                 android:textColor="#7986CB"
                 android:gravity="center"
                 android:text="@string/student_application_accepted"/>
@@ -182,7 +277,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
+                    android:typeface="serif"
                     android:textColor="#7986CB"
                     android:gravity="center"
                     android:text="@string/accept_students_resume"/>
@@ -206,7 +302,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
+                    android:typeface="serif"
                     android:textColor="#FF5722"
                     android:gravity="center"
                     android:text="@string/cancel_student_resume"/>

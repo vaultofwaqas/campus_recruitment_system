@@ -5,7 +5,7 @@ import android.app.Application;
 import com.bumptech.glide.request.target.ViewTarget;
 
 /**
- * Created by Adnan Ahmed on 3/1/2017.
+ * Created by Waqas on 3/1/2017.
  */
 public class App extends Application {
 

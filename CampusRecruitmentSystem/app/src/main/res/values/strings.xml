@@ -52,8 +52,8 @@
     <string name="settings_menu_item">Sign Out</string>
     <string name="student_id">studentID</string>
     <string name="company_name">companyName</string>
-    <string name="student_list_info">Student List</string>
-    <string name="company_list_info">Company List</string>
+    <string name="student_dashboard">Student Dashboard</string>
+    <string name="company_dashboard">Company Dashboard</string>
     <string name="vacancy_available_button">Apply</string>
     <string name="student_detail_info">Detail Student Information</string>
     <string name="company_detail_info">Detail Company Information</string>
@@ -87,6 +87,19 @@
     <string name="delete_student_record">Delete Student Record</string>
     <string name="edit_company_record">Edit Company Record</string>
     <string name="delete_company_record">Delete Company Record</string>
+    <string name="admin_dashboard">Admin Dashboard</string>
+    <string name="student_name">Student Name:</string>
+    <string name="student_email">Student Email:</string>
+    <string name="student_ids">Student ID:</string>
+    <string name="student_date_of_birth">Student Date of Birth:</string>
+    <string name="student_phone_number">Student Phone #:</string>
+    <string name="student_cgpa">Student  CGPA:</string>
+    <string name="company_names">Company Name:</string>
+    <string name="company_email">Company Email:</string>
+    <string name="company_address">Company Address:</string>
+    <string name="company_phone_number">Company Phone #:</string>
+    <string name="company_web_page">Company Web Page:</string>
+    <string name="company_record_deletion_succesfull">Company Record Deletion Successful</string>
 
     <string-array name="member_type">
         <item>Student</item>

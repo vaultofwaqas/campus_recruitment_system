@@ -30,6 +30,8 @@ public class StudentCompanyPagerFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_student_company_pager, container, false);
 
+        AccountListActivity.toolBarText.setText(getString(R.string.admin_dashboard));
+
         attachingWidgets(rootView);
         initializingWidgets();
 

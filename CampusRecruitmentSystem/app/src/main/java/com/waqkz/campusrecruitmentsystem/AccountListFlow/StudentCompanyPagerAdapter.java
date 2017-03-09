@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.waqkz.campusrecruitmentsystem.R;
 
 /**
- * Created by Adnan Ahmed on 3/8/2017.
+ * Created by Waqas on 3/8/2017.
  */
 
 public class StudentCompanyPagerAdapter extends FragmentPagerAdapter {

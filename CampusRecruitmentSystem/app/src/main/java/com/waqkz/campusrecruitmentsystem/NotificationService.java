@@ -25,7 +25,7 @@ import com.waqkz.campusrecruitmentsystem.R;
 import java.util.Random;
 
 /**
- * Created by Adnan Ahmed on 3/7/2017.
+ * Created by Waqas on 3/7/2017.
  */
 
 public class NotificationService extends Service {

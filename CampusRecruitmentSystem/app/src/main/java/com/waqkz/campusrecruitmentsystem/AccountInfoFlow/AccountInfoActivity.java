@@ -28,6 +28,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -91,6 +92,10 @@ public class AccountInfoActivity extends AppCompatActivity {
     private String companyWebPageString;
     private Boolean companyVacancyCheck = false;
 
+    private StudentInfo studentInfo;
+    private CompanyInfo companyInfo;
+    private Boolean membershipCheck = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +111,18 @@ public class AccountInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         membershipType = intent.getExtras().getString("memberType");
+
+        studentInfo = (StudentInfo) intent.getSerializableExtra("studentsInfo");
+        companyInfo = (CompanyInfo) intent.getSerializableExtra("companysInfo");
+
+        if (studentInfo != null){
+
+            membershipType = getString(R.string.student_type);
+
+        } else if (companyInfo != null){
+
+            membershipType = getString(R.string.company_type);
+        }
 
         attachingWidgets();
 
@@ -159,6 +176,30 @@ public class AccountInfoActivity extends AppCompatActivity {
     public void initializingWidgets(){
 
         if (membershipType.equals(getString(R.string.student_type))){
+
+            if (studentInfo != null){
+
+                membershipCheck = true;
+
+                Glide.with(getApplicationContext()).load(studentInfo.getStudentURL()).asBitmap()
+                        .error(R.drawable.default_student).centerCrop().into(userImageView);
+
+                userImageView.setTag(1);
+
+                studentName.setText(studentInfo.getStudentName());
+                studentID.setText(studentInfo.getStudentID());
+                studentPhoneNumber.setText(studentInfo.getStudentPhoneNumber());
+                studentDateOfBirth.setText(studentInfo.getStudentDateOfBirth());
+                studentMarks.setText(studentInfo.getStudentMarks());
+
+                if (studentInfo.getStudentGender().equals(getString(R.string.student_male))){
+
+                    studentMaleRadioButton.setChecked(true);
+                } else {
+
+                    studentFemaleRadioButton.setChecked(true);
+                }
+            }
 
             userImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -268,6 +309,52 @@ public class AccountInfoActivity extends AppCompatActivity {
                     mProgressDialog.setMessage("Updating Student Account ...");
                     mProgressDialog.show();
 
+                    if (studentInfo != null) {
+
+                        final String email = studentInfo.getStudentEmail();
+                        final String uuid = studentInfo.getStudentUUID();
+
+                        uploadFileToFileStorage(v, userImageView, mStorage.child("img/profile"),
+                                uuid, new ServiceListener<String>() {
+                                    @Override
+                                    public void success(String url) {
+
+                                        StudentInfo studentInfo = new StudentInfo(uuid,
+                                                email,
+                                                studentNameString,
+                                                studentIDString,
+                                                studentPhoneNumberString,
+                                                studentDateOfBirthString,
+                                                studentMarksString,
+                                                studentGenderString,
+                                                url);
+
+                                        mDatabase.child(getString(R.string.campus))
+                                                .child(getString(R.string.student_type))
+                                                .child(getString(R.string.student_info))
+                                                .child(uuid)
+                                                .setValue(studentInfo);
+
+                                        mProgressDialog.dismiss();
+                                        openAccountListDetailActivity();
+                                        Snackbar.make(v, "Student Account Update Successful",
+                                                Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                        finish();
+
+                                    }
+
+                                    @Override
+                                    public void error(ServiceError serviceError) {
+
+                                        mProgressDialog.dismiss();
+                                        Snackbar.make(v, "Student Account Update Was Not Successful",
+                                                Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                    }
+                                });
+
+                        return;
+                    }
+
                     uploadFileToFileStorage(v, userImageView, mStorage.child("img/profile"),
                             FirebaseAuth.getInstance().getCurrentUser().getUid(), new ServiceListener<String>() {
                         @Override
@@ -311,6 +398,22 @@ public class AccountInfoActivity extends AppCompatActivity {
         }
 
         if (membershipType.equals(getString(R.string.company_type))){
+
+            if (companyInfo != null){
+
+                membershipCheck = true;
+
+                Glide.with(getApplicationContext()).load(companyInfo.getCompanyURL()).asBitmap()
+                        .error(R.drawable.default_student).centerCrop().into(userImageView);
+
+                userImageView.setTag(1);
+
+                companyName.setText(companyInfo.getCompanyName());
+                companyAddress.setText(companyInfo.getCompanyAddress());
+                companyPhoneNumber.setText(companyInfo.getCompanyPhoneNumber());
+                companyWebPage.setText(companyInfo.getCompanyWebPage());
+                companyVacancyAvailableCheck.setChecked(companyInfo.getCompanyVacancyAvailableCheck());
+            }
 
             userImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -383,6 +486,48 @@ public class AccountInfoActivity extends AppCompatActivity {
 
                     mProgressDialog.setMessage("Updating Company Account ...");
                     mProgressDialog.show();
+
+                    if (companyInfo != null) {
+
+                        final String email = companyInfo.getCompanyEmail();
+                        final String uuid = companyInfo.getCompanyUUID();
+
+                        uploadFileToFileStorage(v, userImageView, mStorage.child("img/profile"),
+                                companyInfo.getCompanyUUID(), new ServiceListener<String>() {
+                                    @Override
+                                    public void success(String url) {
+
+                                        CompanyInfo companyInfo = new CompanyInfo(uuid,
+                                                email,
+                                                companyNameString,
+                                                companyAddressString,
+                                                companyPhoneNumberString,
+                                                companyWebPageString,
+                                                companyVacancyCheck,
+                                                url);
+
+                                        mDatabase.child(getString(R.string.campus))
+                                                .child(getString(R.string.company_type))
+                                                .child(getString(R.string.company_info))
+                                                .child(uuid)
+                                                .setValue(companyInfo);
+
+                                        mProgressDialog.dismiss();
+                                        openAccountListDetailActivity();
+                                        Snackbar.make(v, "Company Account Update Successful",
+                                                Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                        finish();
+
+                                    }
+
+                                    @Override
+                                    public void error(ServiceError serviceError) {
+
+                                    }
+                                });
+
+                        return;
+                    }
 
                     uploadFileToFileStorage(v, userImageView, mStorage.child("img/profile"),
                             FirebaseAuth.getInstance().getCurrentUser().getUid(), new ServiceListener<String>() {
@@ -492,8 +637,20 @@ public class AccountInfoActivity extends AppCompatActivity {
 
     public void openAccountListDetailActivity(){
 
-        Intent intent = new Intent(this, AccountListActivity.class);
-        intent.putExtra("memberType", membershipType);
-        startActivity(intent);
+        if (membershipCheck == true){
+
+            Intent intent = new Intent(this, AccountCreationActivity.class);
+            startActivity(intent);
+
+            finish();
+
+        } else {
+
+            Intent intent = new Intent(this, AccountListActivity.class);
+            intent.putExtra("memberType", membershipType);
+            startActivity(intent);
+
+            finish();
+        }
     }
 }

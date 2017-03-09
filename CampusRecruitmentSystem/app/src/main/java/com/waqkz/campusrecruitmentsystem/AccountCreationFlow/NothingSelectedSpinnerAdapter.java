@@ -9,7 +9,7 @@ import android.widget.ListAdapter;
 import android.widget.SpinnerAdapter;
 
 /**
- * Created by Adnan Ahmed on 3/7/2017.
+ * Created by Waqas on 3/7/2017.
  */
 
 public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapter {

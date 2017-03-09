@@ -46,7 +46,14 @@ public class CompanyListFragment extends Fragment implements CompanyListRecycler
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_company_list, container, false);
 
-        AccountListActivity.toolBarText.setText(getString(R.string.company_list_info));
+        if (AccountListActivity.membershipType.equals(getString(R.string.admin_type))){
+
+            AccountListActivity.toolBarText.setText(getString(R.string.admin_dashboard));
+
+        } else {
+
+            AccountListActivity.toolBarText.setText(getString(R.string.company_dashboard));
+        }
 
         attachingWidgets(rootView);
 

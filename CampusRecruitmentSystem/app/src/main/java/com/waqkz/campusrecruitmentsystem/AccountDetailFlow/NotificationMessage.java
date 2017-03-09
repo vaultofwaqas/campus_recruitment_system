@@ -1,7 +1,7 @@
 package com.waqkz.campusrecruitmentsystem.AccountDetailFlow;
 
 /**
- * Created by Adnan Ahmed on 3/7/2017.
+ * Created by Waqas on 3/7/2017.
  */
 
 public class NotificationMessage {
