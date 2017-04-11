@@ -1,6 +1,6 @@
 # campus_recruitment_system
 
-Admin :
+**Admin :
 
 Email: admin@systems.com Password: 123456
 
